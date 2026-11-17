@@ -1,0 +1,9 @@
+﻿# Game's own scripts (not ours)
+sdk_scripts/
+# Loader and builds
+tools/
+bin/
+obj/
+*.dll
+!lib/prism/prism.dll
+*.log

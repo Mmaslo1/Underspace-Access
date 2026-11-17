@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>UnderspaceAccess</AssemblyName>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <Version>0.2.0</Version>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GameDir>C:\program files (x86)\steam\steamapps\common\Underspace</GameDir>
+    <MLDir>$(GameDir)\MelonLoader</MLDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MelonLoader"><HintPath>$(MLDir)\net6\MelonLoader.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2CppInterop.Runtime"><HintPath>$(MLDir)\net6\Il2CppInterop.Runtime.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2Cppmscorlib"><HintPath>$(MLDir)\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(MLDir)\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(MLDir)\Il2CppAssemblies\UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UIModule"><HintPath>$(MLDir)\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UI"><HintPath>$(MLDir)\Il2CppAssemblies\UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Unity.TextMeshPro"><HintPath>$(MLDir)\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2CppUnderspaceGame"><HintPath>$(MLDir)\Il2CppAssemblies\Il2CppUnderspaceGame.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>

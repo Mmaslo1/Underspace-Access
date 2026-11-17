@@ -1,0 +1,273 @@
+UNDERSPACE ACCESS - STATUS AND TO DO
+Updated: November 2, 2026. Mod version 0.10.0 (not tested yet).
+FULL HOW-TO-PLAY GUIDE + ALL HOTKEYS: Downloads\UnderspaceAccess\UNDERSPACE_GUIDE.txt (test = Part 8)
+A copy of this file is in Downloads\UnderspaceAccess. The real project folder is
+C:\Users\micha\OneDrive\Documents\UnderspaceAccess.
+
+VERSION 0.10.0: CAMPAIGN MISSION 1
+- New: Semicolon = what to do now, and selects the mission waypoint. Hold Period = aim and fire.
+- Objectives no longer talk about red exclamation points or icons.
+- Warning when you leave a mission area.
+TEST: Part 9 of UNDERSPACE_GUIDE.txt. Nothing in the Campaign has been heard yet.
+Version 0.9.4 trading is still untested too: Part 8.
+
+VERSION 0.9.4: TRADING RESULTS
+- Your November 1 test: you bought 15 Consumer Goods for $285 and sold them for $450. Profit $165. Credits $15,165.
+- X and A crashed every time in 0.9.3 ("That did not work"). Fixed, not tested yet.
+- After every buy or sale you now hear what you traded, for how much, profit or loss, credits, cargo hold,
+  level and net worth. The list no longer cuts this off.
+- Your level comes from net worth. There are no separate points for trading.
+TEST: Part 8 of UNDERSPACE_GUIDE.txt.
+
+STILL TO BUILD: asteroid mining, combat improvements, danger warning before jumping, job board.
+
+VERSION 0.9.3: fixes from your October 27 test
+- TRADING: X and A did nothing (the game only listens when the real mouse is on the goods). Now the mod
+  buys and sells itself and says "Bought 1 ...", credits and cargo hold, or why it could not.
+  Enter on goods: the game's amount window is now read. The confusing "[X] Buy One" hints are gone.
+- WHERE TO SELL: F11 on goods = "To earn money, sell it at ..." from stations you have visited.
+  Empty at first: visit other stations' cargo traders first. Guide Part 5C.
+- JUMPGATES: the game's autopilot stops 1.5 to 2.5 km before a gate, too far for the gate. Now F2 on a
+  gate flies all the way in: autopilot, then the mod aims at the middle and gives full throttle until
+  the jump starts. Guide Part 5E.
+- DOCKING: your docking at The Axle did work ("docked"), but F3 a moment later took the ship out again.
+  Now while docking or jumping the mod ignores Enter, F, F2, F3, Page keys and says "please wait".
+
+WHERE WE ARE
+- Your test this morning (0.7.3): talking WORKED (Riles, Geero, full lines). You got Geero's quest
+  "The Ordnance Tomb" (kill three Ordnance Titans: very hard, keep it for later) and launched into space.
+- In space the mod was broken: it thought a menu was open, so arrows said "No menu items". FIXED in 0.8.0.
+
+VERSION 0.9.2 (installed, please test): TRADING, DOCKING HELP, ALL SYSTEMS
+- Your 7:20 test: you JUMPED to the Omega-Alpha system and DOCKED at The Axle. It works!
+- Docking trouble at The Axle: manual docking was enabled. After L said "Manual docking disabled",
+  F worked. NEW: when docking is granted but the ship does not fly in, the mod tells you to press L.
+  NEW: F2 when you are already close says "Press F to dock".
+- Trade window NEW: credits and cargo hold when it opens and after every buy or sell; each goods says
+  price each, how many, category, and the keys (X one, A all); F11 = where it sells best.
+- NEW category "Map, all star systems A to Z" with descriptions; Enter asks the game for a route and
+  the mod explains when there is no known route yet.
+- Explanations: guide Parts 5B (docking), 5C (trading), 5D (how to know where to go).
+TEST: Part 8 of UNDERSPACE_GUIDE.txt.
+
+VERSION 0.9.1: TRAVEL TO OTHER SYSTEMS
+- Your 7:10 test: F3 route WORKED (Communication Relay, "Autofollow Engaged"), and DOCKING WORKED:
+  F2 on UHC-1 flew in, docked, and you were inside the station again.
+- "No path available" for every star system: the game only plans routes through gates you already
+  discovered (none yet). FIX: the last category is now "Map, ways to other star systems": each
+  jumpgate here and the system it leads to. Enter = route to that gate, F2 = fly in and jump.
+- Places on the map: only 1 of 5 was listed. FIXED: all places of this system are listed now.
+- The "manual docking is on" warning was wrong (docking worked). Now only the game's own
+  "Manual docking enabled/disabled" message counts.
+TEST: Part 8 of UNDERSPACE_GUIDE.txt.
+
+VERSION 0.9.0: THE MAP AND DOCKING
+- Your 7 AM test: the list, Enter and F2 WORKED. The autopilot flew to Maudlin Yards and to UHC-1.
+- Why you only found 2 places: the normal categories only show what your scanner sees nearby.
+  NEW: two MAP categories at the end of Shift+Page Down: "Map, places in this system" (every known
+  station, planet, jumpgate, laneline at any distance) and "Map, other star systems".
+- Enter on a map place: the game plans a route (lanelines). F3: the autopilot follows it.
+- Enter on a star system: route to its jumpgate. At the gate, F jumps.
+- DOCKING: the dock key is F, not F2. F2 only flies you close. Your docking was granted but the ship
+  did not move: probably manual docking is on (L). The mod now tells you, and F10 says it. Press L once.
+- Getting off the ship: after docking, the game puts you inside the station. You walk again.
+- Fixed: F2 pressed during the autopilot no longer starts it again by itself.
+- Fixed: after Shift+Page Down the list is read a moment later (it read the old list before).
+TEST: Part 8 of UNDERSPACE_GUIDE.txt.
+
+VERSION 0.8.2
+- Your 6:44 test: Z opened the Job Board and Z launched your ship: both WORKED.
+- FIXED: in space the mod still thought a menu was open ("No menu items", Page Down did nothing).
+  The game changes the mouse setting during flight; now only a visible mouse pointer counts as a menu.
+- FIXED: the Z and C keys were said one room late (the old room's keys). Now said a second after arrival.
+- The jobs at UHC-1 are difficulty 12 to 17, you are level 5. The difficulty is the enemies' level,
+  so they ARE too hard for now (you read it right).
+
+VERSION 0.8.1
+- Your 6:30 test: you got stuck about 11 meters from the Job Board (tables in the way), and F2 did nothing
+  (you were already in the launch bay).
+- The answer: the game has shortcut keys Z and C in every room. No walking needed.
+  Bar: Z = Job Board, C = News. Launch bay: Z = launch your ship (this is how you board it).
+  Equipment dealer: Z = shop, C = repair. Trader: Z = trade, C = storage. Ship dealer: Z = ships, C = customize.
+- The mod now says the Z and C keys when you enter a room, after loading, and in F10.
+- Blocked within 12 meters of a person or thing: "You are close enough. Press F." F then works.
+
+VERSION 0.8.0 (installed, still to test): FLYING
+- Page Down / Page Up: nearby things from the game's contact list (name, kind, enemy, distance, direction).
+- Shift+Page Down / Up: category (Important, Ships, Solars, Wreckage, Loot, All). Waypoints come first.
+- Enter: select as target. Then the GAME's F2: autopilot flies there (and docks). F1 cancels.
+  If F2 does nothing, the mod starts the same autopilot itself.
+- End: where is my target (distance, direction, degrees, its hull and shields).
+- F10 in space: hull, shields, energy, speed, throttle, autopilot, target.
+- Hold arrows: steer the nose. Shift: slowly. Hold Home: aim at the target ("On target").
+- Spoken by itself: autopilot changes, laneline travel, high engines, throttle when W/S let go,
+  new enemies, your shield and hull damage, target destroyed (press B for loot).
+- Station: if you are blocked within 10 meters of a person (a counter), you hear that you are close
+  enough; F then talks to them.
+TEST: see Part 8 of UNDERSPACE_GUIDE.txt.
+
+YOUR TIP (10/25): commodity trading and mining make money, and other systems have starter
+planets with easier jobs. Mod work for that: cargo trader screen, mining, jumpgates, the map (U).
+
+NEXT (after your test)
+- MINING (you asked): find asteroid fields with the map, shoot the small moving asteroids, collect with B.
+- Fix what the test shows (docking, steering).
+- Job Board and mission windows read well; a quest log reader.
+- Combat polish, then cargo/inventory/equipment screens, crafting, map.
+- Later: Campaign mode.
+
+VERSION 0.7.3 (installed, please test)
+- Your test: F WORKED. You talked to the Stationmaster and the Signalman, and opened the Shipwright's shop.
+  But what they said was cut off at once by the mod reading the reply buttons.
+- Now: what a person says is read to the end first, then the reply choices.
+  Pressing any key stops the reading if you want to go on.
+- Fixed: after you closed the Shipwright's shop, the mod opened it again. Not any more.
+- "Looking at <name>" waits its turn now.
+TEST: talk to the Stationmaster again (People list, walk, F). You should hear
+"Starchaser. How can I assist you?" in full, then the choices.
+
+VERSION 0.7.2 (installed, please test)
+- Your last test: you walked right to the Stationmaster, but F did nothing.
+- Now: when the game thinks you look at someone, you hear "Looking at <name>. F to talk."
+- If you press F next to the chosen person and nothing opens, the mod starts the talk:
+  you hear "Talking to <name>."
+- Saving now says "Saved as <name>" (checked in the game's save folder).
+TEST: pick the Stationmaster (People list), walk to "You are at ...", press F, listen. Then save. Quit.
+
+VERSION 0.7.1 (installed, please test)
+- TURN with Q (left) and E (right). Hold the key. Arrows also work.
+- When you turn past the chosen person you hear "Facing <name>. Let go."
+- Then walk with W. When you hear "You are at <name>", press F.
+- If they are to the side you hear "Turn right with E" or "Turn left with Q".
+- Home still turns you to face the place in one go.
+- Chairs are only in the Chairs list now (there were 161).
+- Your JAWS key file already exists and works (Underspace.jkm). Nothing to do.
+
+WHAT YOUR TEST THIS MORNING SHOWED (version 0.6.1)
+- The F2 to F7 room keys DID move you (bar, launch bay and so on). They were just silent.
+- Your save "firstgame" DID work. It is in the save list.
+- F10 listed people but gave no direction.
+
+NEW IN 0.7.0 (please test)
+- Room keys now speak: "Now in the bar. 3 people here."
+- Saving now speaks: "Saved as firstgame."
+- Places list in a station (menus closed):
+  - Page Up / Page Down: category: People, Doors, Things, Chairs, Everything.
+  - Up / Down arrows: choose a place. You hear name, meters, direction.
+  - Walk yourself with W A S D. While you hold them, the mod says the direction
+    (straight ahead, ahead to your left, to your right, behind you) and the meters.
+  - "Blocked" means something is in the way: step to the side with A or D.
+  - "You are at ..." means you arrived. Press F to talk or use it.
+  - Hold Left or Right arrow: turn. Shift makes it slow.
+  - Home: turn to face the chosen place. End: where is it now. Delete: directions off.
+- No auto walking.
+
+TEST STEPS
+1. Load firstgame. Press F3 (bar): you should hear "Now in the bar".
+2. Page Down until "People". Up/Down arrow to pick someone.
+3. Hold W and listen. Turn with Left/Right arrow or walk with A/D until you hear "straight ahead".
+4. Walk until "You are at ...", press F.
+5. Pause, save with a name: you should hear "Saved as ...".
+Then quit and tell Claude: Claude reads the log.
+
+
+OLDER NOTES
+
+=== NEW IN 0.6.1 (NOT TESTED YET) ===
+- You start docked at a space station. You do not need to walk between rooms: the game has
+  ROOM KEYS. F1 to F9 each warp you to a room, for example the launch bay where your ship is.
+- F10 now says: the station and room you are in, the people in the room and how far away
+  they are, the room keys, the system, and your quest and objective.
+- Shift+F10: says your walking keys and writes ALL your game controls to a file:
+  Downloads\UnderspaceAccess\Underspace_Controls.txt (read it with JAWS).
+- The "Interact F" and "Toggle Mouse" tips are now said only once.
+- The pause menu no longer reads numbers, the version and the play time clock.
+
+WHAT TO TEST: start or load a game. Press F10. Press Shift+F10. Open the controls file.
+Try one room key that F10 told you (for example the launch bay) and press F10 again.
+
+=== 0.6.0: THE GAME TALKS ===
+- The mod reads the game's messages, entering a system, people talking to you, quests and
+  objectives, tutorial tips, subtitles, alerts, and what you can interact with.
+- In the game (no menu open):
+  F10: where you are and what to do (system, quest, objective).
+  F11: repeat the last message.
+- Tomorrow: space combat.
+
+=== 0.5.2 ===
+- Rows with no colour (like Fronds) now say their choice, for example "Has Fronds" or "No Fronds".
+- Manual: words like "/opentarget" are replaced by your key, for example "the T key".
+  The star marks are gone, so each point is read as a sentence.
+
+=== 0.5.1 (TESTED 10/22 8:27 PM: WORKED) ===
+- Manual: the mod now reads the manual's topics and pages straight from the game's data.
+  Up and Down choose a topic, Enter opens it, Up and Down read the pages, Escape goes back.
+- Colour names: a second, stronger way to find the colour. If it still says only numbers,
+  the log now tells Claude why.
+- After Create (or any click), any message the game shows is read, for example a missing name.
+- Once you are in the game the mod says "You are in the game".
+
+=== FROM 0.5.0 (TESTED 10/22 8:19 PM) ===
+- Worked: new order, race description, Left/Right on the colour rows.
+- Did not work: colour names, Manual, message after Create.
+
+1. Character creation (Freeplay) is in a clearer order:
+   Name, Random name, Race, Loadout (your ship), then the colours, then Reset, then Create.
+   - Name: says "Name, edit" and what you typed.
+   - Random name: picks a random name for your race. Careful: it REPLACES the name you typed.
+     That is what happened in your test: you typed mike, then Random name changed it.
+   - Race: after the race name, its description is read. Left and Right change the race.
+   - Each colour is now ONE item with a colour name the mod works out, for example
+     "Arm Color, dark red, 2 of 20". The game has no colour names, so the mod measures each colour.
+     Left and Right arrows change it. (Before, there were separate Previous and Next items.)
+   - The Rotate buttons are hidden. They only turn the picture of your character.
+2. Loading: when the game freezes to load, the mod says
+   "Loading, please wait. This can take up to two minutes", then "Still loading" every
+   20 seconds, then "Loading finished".
+3. Manual (title menu): each manual topic and page should now be an item.
+   Enter opens it and its text is read. If you hear "Opened. Press F10 to read the screen",
+   press F10.
+4. JAWS key file: you already had one (Underspace.jkm, made this morning). JAWS uses it
+   by itself whenever the game is in front. Shift+F1, Shift+F2, Shift+F10 and Shift+F11 were
+   added to it.
+
+WHAT TO TEST NEXT TIME (about 5 minutes):
+- Title menu: go to Manual, press Enter. Arrow through it, press Enter on a topic.
+- New Game, Freeplay. Arrow through character creation. Change a colour with Left/Right.
+  Change the race with Left/Right and listen for the description. Type your name LAST.
+  Then Create.
+- Listen for "Loading" and "Loading finished".
+Claude reads the log afterwards.
+
+=== WHAT WAS DONE BEFORE ===
+
+- MelonLoader 0.7.3 installed; the mod speaks through JAWS ("Underspace Access loaded").
+- All title menus and all four Options tabs read, including sliders, switches, dropdowns
+  and key rebinding. Escape goes back.
+
+MOD KEYS (the game itself uses F1 to F9, Home, Tab and Backspace):
+   Up and Down arrows: move through items
+   Home and End: first and last item
+   Page Up and Page Down: jump 10 items
+   Enter or Space: click
+   Left and Right arrows: change a slider, dropdown, switch or colour
+   Escape: go back
+   F11: repeat the current item and its description
+   F10: read the rest of the text on the screen
+   Shift+F11: write a diagnostic dump to the log (for Claude)
+
+=== STILL TO DO ===
+
+1. Check the in-game speech from 0.6.0 and fill the gaps.
+2. In-game pause menu.
+3. Station menus (trading, repair, ship dealer, missions).
+4. Finding your way in stations (launch bay, people, shops) and your ship status
+   (hull, shields, energy, speed) - agreed as the step before combat.
+5. Crafting (and the other ship and inventory screens).
+6. Flying and SPACE COMBAT (the big one): ship status, list of nearby ships and stations,
+   enemy warnings, aiming help, autopilot.
+
+=== FILES ===
+- Mod log: C:\program files (x86)\steam\steamapps\common\Underspace\UserData\UnderspaceAccess\UnderspaceAccess.log
+- To undo the mod: delete version.dll, the MelonLoader folder, the Mods folder and the UserData
+  folder from the game folder.

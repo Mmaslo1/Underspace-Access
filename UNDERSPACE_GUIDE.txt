@@ -1,0 +1,399 @@
+UNDERSPACE - HOW TO PLAY, WITH THE UNDERSPACE ACCESS MOD
+Written October 25, 2026, for mod version 0.9.2 (updated after your 7:20 AM trip to The Axle).
+Things marked "NOT CHECKED YET" are my best understanding of the game, still to be proven in a test.
+
+=====================================================================
+PART 1. WHAT KIND OF GAME THIS IS
+=====================================================================
+
+- Underspace is an open-world space game. You are a "starchaser": a freelance pilot with your own small ship.
+- You fly between space stations and planets. You take jobs, fight pirates and space monsters,
+  collect loot, trade cargo, buy better weapons and ships, and level up.
+- The universe is split into star systems. Inside a system you travel by:
+  - Flying yourself (slow).
+  - The autopilot: you pick a target and the ship flies there on its own. Sighted players use it all the time.
+  - Lanelines: highways made of rings. You fly into the first ring and the laneline carries you at high speed
+    to the far end. Pirates sometimes ambush lanelines.
+- To get to another star system you go through a jumpgate or a jumphole.
+- There is no "fast travel" button. Trains exist later (you pay a captain to carry you to stations you have found).
+
+GAME MODES
+- Campaign: the story, with tutorial missions (navigation, combat, docking).
+- Freeplay: what you are playing. No story, no tutorial. You start at a station and do whatever you like.
+  We stay in Freeplay for now, and do the Campaign later.
+
+=====================================================================
+PART 2. WHERE YOU ARE RIGHT NOW (from your log this morning)
+=====================================================================
+
+- Your character: mike, a Ballden, level 5.
+- Your ship: the Shoreline, a Tier 1 light fighter (the starting ship; small and weak).
+- Your home station: UHC-1, in the Alpha-Omega System. UHC is the starchasers' guild.
+- When you launched, you came out in the Alpha-Omega System, Union Space. The game saved there.
+
+THE TWO PEOPLE YOU TALKED TO IN THE BAR
+- Commander Riles: a navy officer on leave because of an injury. Just conversation, no job.
+- Geero the Survivor: an old starchaser. You told him "I'll fulfill your dying dream".
+  - He gave you a QUEST called "The Ordnance Tomb", plus two items: Titan's Map and Titan's Key.
+  - Objective: "Track down and kill all three Ordnance Titans."
+  - Ordnance Titans are giant monsters ("godwights"). Geero himself warns that many veteran starchasers died to them.
+  - My advice: this is a late, hard quest. Your level 5 starter ship would most likely be destroyed.
+    Keep the quest; it stays in your quest log (O key). Come back to it when you are much stronger.
+  - When all three are dead, you return to Geero for the reward.
+
+QUEST, MISSION, BOUNTY: WHAT IS THE DIFFERENCE
+- Quest: a story task from a character you talk to (like Geero). Shown in the Quests tab of the quest log.
+- Mission (also called job): paid work from a station's Job Board, for example kill pirates, carry cargo, escort.
+  You can cancel a mission, but most factions like you a little less for it.
+- Bounty: a strong wanted enemy from a Bounty Board. You get paid for killing it.
+- The quest log (O key, or the Tab menu) has the tabs Quests, Missions and Bounties.
+- Your Missions tab says "Current Missions: All The Little Things In Life". NOT CHECKED YET: I think that is an
+  empty placeholder line, which would mean you have NO missions yet.
+
+=====================================================================
+PART 3. WHAT TO DO FIRST IN FREEPLAY (my suggested plan)
+=====================================================================
+
+1. In the station press F3 (warp to the bar). Then press Z: the Job Board opens. No walking needed.
+   Read the jobs with the arrows. Take an EASY one: a low difficulty number, near your level (you are 5).
+   The job gives you instructions and usually a waypoint (a marker the mod puts first in your space list).
+2. Press F2 (warp to the launch bay). Then press Z: your ship launches into space.
+3. In space: Page Down. The first thing in the list is your waypoint, if the job gave one.
+   Press Enter to select it, then F2: the autopilot flies there.
+4. Do the job (often: fight a few pirates). Collect the loot with B.
+5. Come back to a station: select it, press F2, the autopilot flies there and docks.
+6. Spend the money on better weapons and shields at the Equipment Dealer (F4 in the station).
+7. Repeat. Your level goes up with money, loot and items. Level-ups give skill points (I = character sheet).
+
+=====================================================================
+PART 4. IN THE STATION
+=====================================================================
+
+ROOM KEYS (the game warps you to the room; the mod says "Now in the ...")
+- F2: launch bay (your ship is here, and the Storage, Customize Ship and Customize Character terminals)
+- F3: bar (Job Board, News Board, people who give quests)
+- F4: equipment dealer (buy and sell weapons and gear, repair and restock)
+- F5: cargo trader (buy goods cheap, sell them dearer elsewhere)
+- F6: ship dealer (buy a new ship)
+- F7: UHC chapterhouse (the guild)
+
+Z AND C: EACH ROOM'S SERVICES, NO WALKING NEEDED (this is the game's own shortcut)
+- The mod tells you the Z and C keys of a room when you arrive there, and in F10.
+- Launch bay: Z = launch your ship into space (this is how you board your ship). C = storage or ship customization.
+- Bar: Z = Job Board (missions). C = News Board.
+- Equipment dealer: Z = buy and sell equipment. C = repair and restock your ship.
+- Cargo trader: Z = trade goods. C = storage.
+- Ship dealer: Z = buy ships. C = customize your ship.
+- Underspace information: Z = Underspace information, C = storm regions.
+- People still need walking: you talk to them with F.
+- F2 does nothing when you are already in the launch bay. That is normal: then press Z.
+
+FINDING AND WALKING TO THINGS (mod)
+- Page Up / Page Down: category: People, Doors, Things, Chairs, Everything.
+- Up / Down arrows: choose a place. You hear name, meters and direction.
+- Hold Q or E (or Left / Right arrow): turn left or right. "Facing ..." means let go.
+- Home: turn to face the chosen place in one go.
+- W A S D: walk (W forward, S back, A and D sideways). While you walk, the mod says the direction and meters.
+- "Blocked": something is in the way. Step sideways with A or D.
+  NEW: if you are within 12 meters of a person or thing and blocked (a counter or a table), the mod tells
+  you that you are close enough: press F and the mod starts the talk or opens the thing.
+- "You are at ...": you arrived. Press F to talk to them or use the thing.
+- End: where is the chosen place now. Delete: stop the directions.
+
+TALKING
+- F: talk, trade or use.
+- The conversation is a menu: Up/Down arrows choose a reply, Enter says it. "Next" continues.
+- The mod reads the person's line in full first; any key press skips it.
+
+LAUNCHING (boarding your ship)
+- F2 (warp to the launch bay), then Z. The ship launches.
+
+=====================================================================
+PART 5. IN SPACE: HOW TO FLY (new in mod version 0.8.0)
+=====================================================================
+
+THE IDEA
+- Sighted players see nearby objects in a "contact list" in the lower left corner and click one to target it.
+- The mod now reads that same list to you and selects things for you the same way a click does.
+- Then you let the game's own autopilot fly there (F2), or you steer yourself.
+
+TWO KINDS OF LISTS IN SPACE
+- NEARBY (what your scanner sees, a few kilometers around you): categories Important, Ships, Solars,
+  Wreckage, Loot, All. This is why you only found 2 stations: only things close by are in these.
+- THE MAP (new in 0.9.0): the last two categories.
+  - "Map, places in this system": every known station, planet, jumpgate and laneline in the whole
+    system, at any distance. Stations and planets first, then jumpgates, then lanelines.
+  - "Map, ways to other star systems": every jumpgate and jumphole in this system, and which system it
+    leads to. You travel one system at a time: go through a gate, then in the new system pick the next gate.
+- Shift+Page Down / Shift+Page Up moves between all 8 categories.
+
+STEP BY STEP: FLY TO A STATION AND DOCK (proven in your 7:14 AM test)
+1. Pick the station (Solars category or the map). Enter: "Target: ...".
+2. F2: the autopilot flies there AND docks: you hear "docking", "entering the dock", "docked".
+   (If it only flies close and stops, press F2 or F once more.)
+3. Once docked, the game loads the station inside and you are walking again. Nothing else to press.
+
+STEP BY STEP: TRAVEL ANYWHERE WITH THE MAP
+1. Shift+Page Down until "Map, places in this system". Page Down to the place you want. Enter.
+   You hear "Route set to ...". The game plans the fastest way, using lanelines.
+2. F3: the autopilot follows the route (the game's auto-follow). You hear "Following the route" and
+   "Next waypoint: ..." at each step. Lanelines carry you at high speed.
+   (F2 instead flies straight there: slower, but simple.)
+3. When you arrive at a station or planet, press F to dock.
+
+STEP BY STEP: GO TO ANOTHER STAR SYSTEM
+1. Shift+Page Down until "Map, ways to other star systems". Page Down: "To Clearhome, through
+   Omega-Alpha Jumpgate, 9 kilometers" (example). Enter: route to that gate.
+2. F2 (fly straight to the gate) or F3 (follow the route).
+3. At the gate the autopilot flies you in and you jump (if it stops near the gate, press F2 or F).
+   You hear "Entering <system>".
+4. In the new system, the map categories show its stations, planets and gates. Pick the next gate.
+- Why not "fly to Clearhome" in one go: the game only plans routes through gates you have already
+  discovered, and you have not discovered any yet. That is why it said "No path available".
+
+MANUAL DOCKING (important)
+- L switches manual docking on and off. The game says "Manual docking enabled" or "disabled".
+- Keep it DISABLED: then the autopilot docks for you. In your 7:10 test you pressed L, the game said
+  "Manual docking disabled", and after that docking worked.
+- If you hear "Manual docking enabled", press L once more.
+
+OTHER KEYS
+- F1 cancels the autopilot. You hear "Autopilot off, you are flying."
+- Pressing F2 again while it flies also stops it (the key switches on and off).
+- End: at any time, where is my target: distance, direction, and how many degrees left/right, up/down.
+- F10: ship status: hull, shields, energy, speed, throttle, autopilot, target.
+
+LANELINES (space highways)
+- Select a laneline (Solars category) and press F2. The ship flies into the ring and the laneline carries you.
+- The mod says "travelling on a laneline", then "leaving the laneline" at the end.
+- Escape leaves a laneline early (NOT CHECKED YET: the game's tip says the "close menu" key does it).
+- You cannot use weapons on a laneline.
+
+FLYING BY HAND
+- W: more throttle (speed). S: less. The mod says the throttle when you let go.
+- Double tap W: high engines (much faster; guns are off while they run). The mod says on and off.
+- X: reverse. Left Shift: thrust (afterburner, a short burst).
+- Steering: the game steers with the mouse. The mod adds keys:
+  - Hold Left / Right arrow: turn the nose left / right.
+  - Hold Up / Down arrow: nose up / down.
+  - Hold Shift too: turn slowly, for fine aiming.
+  - When you let go, you hear where your target is now.
+- Q / E: roll (tilt the ship). A / D: slide sideways. Double tap A or D: dodge.
+- Space: mouse follow on/off (the game's "free flight" switch). If the ship keeps turning by itself when you
+  are not pressing anything, the mouse is steering: press Space once to switch mouse steering off.
+
+=====================================================================
+PART 5B. DOCKING: WHAT WENT WRONG AT THE AXLE, AND THE SIMPLE WAY
+=====================================================================
+
+What happened (from your log):
+- F2 flew you to about 3 kilometers from The Axle and stopped. Then F said "Dock Request Granted",
+  but the ship did not move. That happened 3 times.
+- Then you pressed L a few times. The game said "Manual docking disabled". Right after that, F worked:
+  the ship flew in, docked, and you were inside.
+- So the only problem was MANUAL DOCKING. When it is ENABLED, the station allows you in, but the game
+  expects you to steer into the dock yourself. When it is DISABLED, the autopilot flies you in.
+- The game remembers this setting, and L flips it each time you press it. Pressing L twice puts it back.
+
+The simple way, every time:
+1. Select the station. Press F2. Wait until the autopilot stops near it.
+2. Press F. You should hear "Dock Request Granted", then "Autopilot: entering the dock", then "docked".
+3. NEW: if the ship does not fly in, the mod now says: "Docking was granted, but the ship does not fly in
+   by itself: manual docking is on. Press L once..." Press L ONCE, wait for "Manual docking disabled",
+   then F again.
+4. NEW: if you press F2 when you are already close, the mod says "You are already close. Press F to dock."
+
+DOCKING: WAIT, DO NOT PRESS KEYS (new in 0.9.3, from your October 27 test)
+- On October 27 your docking at The Axle actually WORKED: you heard "docked". But one moment later F3
+  was pressed, and that took the ship out of the dock again. The second time, Enter was pressed while
+  the ship was entering the dock, and it got stuck.
+- Entering the dock takes about 15 seconds. NEW: the mod now says "Entering the dock. This takes about
+  15 seconds. Please wait, do not press keys." While it docks, the mod ignores Enter, F, F2, F3 and
+  Page Up / Page Down, and tells you to wait instead. End still tells you where the station is.
+- If it takes longer than 45 seconds, the mod tells you: F1 cancels, then choose the station and F2 again.
+
+WHY THE SHIP IS SLOW (the "snail")
+- F2 flies straight there at normal speed.
+- For long trips, use the route instead: on a map place press Enter, then F3. The route uses lanelines
+  and high engines (in your 7:10 test it reached 309 speed, about 3 times faster).
+- While flying yourself you can double tap W for high engines.
+
+=====================================================================
+PART 5C. TRADING COMMODITIES (buy cheap, sell expensive)
+=====================================================================
+
+The idea:
+- Each station sells some goods (commodities) and buys others. Prices differ between stations.
+- You buy goods where they are cheap, fly them to a station that pays more, and sell them.
+- Your ship has a cargo hold. Your Shoreline holds 15 units ("0 of 15 used" means empty).
+- Your level goes up with your net worth, so trading also levels you up. There are no separate points for trading.
+- From mod version 0.9.4, every buy or sale says what you traded, the price, profit or loss, credits, hold, level and net worth.
+- Careful: some stations scan your cargo ("contraband scan"). Do not carry illegal goods.
+
+How to do it (with mod version 0.9.2):
+1. In a station, warp to the cargo trader room. Press Z: the trade window opens.
+   NEW: the mod says your credits and your cargo hold, for example "Credits 2,000. Cargo hold 0 of 15 used."
+2. The first buttons are categories: "Commodities" is the goods for trading. Press Enter on it.
+3. Up / Down arrows: the goods. NEW: each one says its name, price each, how many for sale, and its
+   category, for example "Consumer Goods, $19 each, 200 for sale, Commodity, X buys one, A buys all".
+4. X buys one. A buys as many as fit in your hold (or as many as you can pay for).
+   FIXED in 0.9.3: on October 27 X and A did nothing, because the game only listens to them when the
+   real mouse pointer is on the goods. Now the mod does the buying itself. You hear for example
+   "Bought 1 Consumer Goods. Credits $14,981. Cargo hold 1 of 15 used."
+   If it cannot buy, you hear why (hold full, not enough credits).
+   Enter on a goods opens the game's own amount window. NEW: the mod reads it (price, amount, total).
+   In it, Left and Right arrows on the slider change the amount, then the Buy button. Escape closes it.
+5. WHERE DO I SELL IT? Press F11 on a goods. The mod asks the game's best-price list and says
+   "To earn money, sell it at: <station> <price>", and where it is cheapest to buy.
+   - Important: the game only knows prices of stations you have docked at and opened the cargo
+     trader. At the start the list is empty, and the mod says so.
+   - So: visit 2 or 3 stations (The Axle, Spokes Waste Depot, Communication Relay are all in this
+     system), open the cargo trader at each one (Z), then press F11 again.
+   - Ijuni trademasters on capital planets and big stations tell base prices of most goods.
+6. Escape closes the window.
+7. Fly to a station that pays more, open its cargo trader with Z, find your goods (they show
+   "you have 15"), and press A to sell all. X sells one.
+
+A good first trade:
+- Buy one kind of goods at The Axle, sell it at a station in the next system, and see the difference.
+- Start small: buy a few with X, so a bad price does not hurt.
+
+=====================================================================
+PART 5D. HOW DO I KNOW WHERE TO GO?
+=====================================================================
+
+- Quests, jobs and bounties tell you: they set a waypoint, and it comes first in the Important list.
+  Then Page Down, Enter, F3 (or F2).
+- "Map, places in this system": every station, planet and gate of the system you are in.
+- "Map, ways to other star systems": each gate here and the system it leads to.
+- NEW "Map, all star systems A to Z": every named system in the galaxy, with its description (what kind
+  of place it is). Enter asks the game for a route.
+  - The game only plans routes through gates you have already flown through. Far systems answer
+    "No known route yet" until you have explored the way. Go gate by gate: each jump teaches the game
+    a new connection, and later routes get longer and easier.
+- The system description also mentions dangers, factions and what is there. Listen to it before you jump.
+- Bars and the News Board (C in the bar) often mention places worth visiting.
+- On a station, F10 says where you are. In space, F10 says your ship status.
+
+=====================================================================
+PART 5E. FLYING THROUGH A JUMPGATE (new in 0.9.3)
+=====================================================================
+
+What went wrong on October 27 (from your log):
+- F2 flew you toward the gate, but the game's autopilot always stops 1.5 to 2.5 kilometers before a
+  gate. The gate only accepts you from closer (1.5 kilometers). So F did nothing, and the ship drifted
+  past the gate.
+
+The new way:
+1. Shift+Page Down to "Map, ways to other star systems". Page Down to the gate you want. Enter.
+2. Press F2. You hear "Flying into <gate>. The jump starts by itself."
+3. The mod now does the rest: the autopilot flies close, then the mod points the ship at the middle of
+   the gate, gives full throttle, and asks the gate to let you in. Then you hear "Jumping through the
+   gate" and "Entering <system>".
+4. Arrow keys or F1 stop it, if you want to fly yourself. F2 again also stops it.
+5. If it still does not get through after 2.5 minutes, the mod tells you where the gate is.
+
+=====================================================================
+PART 6. COMBAT
+=====================================================================
+
+- The mod warns you: "Enemy: <name>, 2.1 kilometers, ahead left."
+- Comma: the game targets the nearest enemy. The mod says its name.
+- Hold Home: the mod turns your nose onto the target. "On target" means your guns point at it.
+- Right mouse button: fire your guns. (You can change this to a keyboard key in Options, Controls.)
+- Keep holding Home while you fire, so you stay on target as it moves.
+- End: target distance, direction, and its hull and shields in percent.
+- Damage warnings: "Shields 50 percent", "Shields down!", "Hull 40 percent!".
+- G: recharge shields. Hold G: repair the hull (uses repair items you carry).
+- Double tap A or D: dodge sideways.
+- C: countermeasures (against missiles). T: heavy equipment (if you have it). 1 to 0: use equipment slots.
+- When the enemy dies: "<name> destroyed. If it dropped cargo, press B to collect it."
+- Running away: double tap W for high engines.
+- If your ship is destroyed the game offers respawn or reload; the mod reads that screen.
+
+=====================================================================
+PART 7. ALL HOTKEYS
+=====================================================================
+
+MOD KEYS EVERYWHERE
+- F10: where am I (in space: ship status first). Shift+F10: say the keys and write them all to the file
+  Downloads\UnderspaceAccess\Underspace_Controls.txt (your real current keys from the game's settings).
+- F11: repeat the last message.
+
+MOD KEYS IN MENUS (any time a menu or window is open)
+- Up / Down arrows: previous / next item. Home / End: first / last. Page Up / Page Down: 10 items.
+- Enter or Space: press the item. Left / Right arrows: change a slider, list or on/off switch.
+- Escape: back or close. F11: item description. F10: read the rest of the screen.
+
+MOD KEYS IN A STATION: see Part 4.
+MOD KEYS IN SPACE: see Part 5 and Part 6.
+
+GAME KEYS: FLIGHT
+- W / S: throttle up / down. Double tap W: high engines. X: reverse. Left Shift: thrust.
+- A / D: strafe left / right. Double tap A / D: dodge. Left Ctrl / Left Alt: strafe up / down.
+- Q / E: roll left / right. Z: suspend physics (drift). Space: mouse follow on/off. L: manual docking on/off.
+
+GAME KEYS: AUTOPILOT
+- F1: cancel autopilot. F2: go to target. F: dock with target. F3: follow the route (auto-follow). F4: fly in formation with the target.
+
+GAME KEYS: COMBAT AND SHIP
+- Right mouse button: fire. Left mouse button: select a target (the mod's Enter does this for you).
+- Comma: target the nearest enemy. R: use equipment. T: heavy equipment 1, hold T: heavy equipment 2.
+- 1 to 0: activate equipment slots. G: recharge shields. Hold G: repair hull. B: collect cargo.
+- Hold B: long range scan. C: countermeasures. Hold C: cloak. Hold Left Bracket: mines.
+- Shift+K: self-destruct (careful). Shift+N: switch firing modes. K: headlights.
+
+GAME KEYS: MENUS AND WINDOWS
+- Tab: main menu. Y: cargo. U: map. I: character sheet (skill points). O: quest log. P: information on target.
+- N: scan target. Shift+M: hail target (talk to a ship). M: friend drive. Left Bracket: party. Right Bracket: players.
+- Backspace: minimize windows. Escape: pause menu (save, load, options, quit). F8: quick save. F9: quick load.
+- Keypad 1 to 9: dialogue choices, Keypad 0: skip dialogue.
+
+GAME KEYS: STATION
+- W A S D: walk. Left Shift: sprint. Space: jump. Left Ctrl: crouch. F: talk or use.
+- Right mouse button: mouse mode (for the overhead panels; the mod reads them when the cursor shows).
+- F2 to F7: room keys (Part 4). Z and C: the room's services (Part 4).
+
+=====================================================================
+PART 8. TEST FOR VERSION 0.9.4 (about 5 minutes)
+=====================================================================
+
+1. Load your save. Go to a cargo trader and press Z. You should hear credits, cargo hold, level and net worth.
+2. Enter on "Commodities". Down arrow to something cheap.
+3. Press X once. You should hear for example "Bought 1 Water for $5. Credits ... Cargo hold ...".
+4. Press A on the same goods. It should buy as many as fit.
+5. Move to your goods ("you have ..."). It should also say what you paid each.
+6. Press X to sell one, then A to sell the rest. Selling at the same station will usually show a small loss,
+   and that is fine for this test. You should hear what you sold, for how much, what you paid, and the
+   profit or loss.
+Then quit. I read the log myself.
+If X or A says "That did not work", the game's own keys E (one) and F (all) probably still work.
+
+
+=====================================================================
+PART 9. CAMPAIGN, MISSION 1 (new in mod version 0.10.0, about 15 minutes)
+=====================================================================
+
+Your Freeplay character Mike is kept. Campaign is a separate game: you play Kardoz Speakerson.
+All your saves were copied to Downloads\Games_Backup\Underspace_saves_2026-11-02 first.
+
+NEW KEYS
+- Semicolon: what to do now. Says the mission and objective. In space it also selects the mission
+  waypoint, so F2 flies you there right away.
+- Hold Period: aim at your target and fire. Comma first, to target the nearest enemy.
+  If the enemy is too far you hear so. Keep holding and press W; you hear "In range. Firing."
+  While you fire you hear "Target shields down" and the target's hull.
+
+THE START OF THE STORY, from the game's own files
+1. Title menu: New Game, then Campaign. Enter.
+2. A story scene plays. The mod reads its subtitles.
+3. You are on Planet Vauldric. Quest: Looking For Work. Press F7 to go to the chapterhouse.
+4. Talk to the chaptermaster. Up and Down arrows choose a person, F talks.
+5. Quest: First Day On The Job. Press F2 to go to the launch bay, then Z to launch.
+6. In space press Semicolon, then F2, to meet your squad. The squad leader is Yunelese.
+7. It is called a simple escort, but there will be a fight. Comma, then hold Period.
+8. Afterwards you land on Rikenrend Shipyard. Press Semicolon, then F2, and F to dock.
+
+NOT CHECKED YET: the steps above come from the game's text, not from play. Nobody has heard the
+Campaign with this mod. Firing from the keyboard is new and has never been tried. If a step goes
+silent or you get stuck, say where, and quit the game. I read the log myself.

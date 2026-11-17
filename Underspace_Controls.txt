@@ -1,0 +1,188 @@
+UNDERSPACE CONTROLS (your current keys, from the game's settings)
+
+
+== Flight Controls ==
+Accelerate: /W.
+Decelerate: /S.
+Strafe Left: /A.
+Strafe Right: /D.
+Strafe Up: /LeftControl.
+Strafe Down: /LeftAlt.
+Dodge Left: /Doubletap A.
+Dodge Right: /Doubletap D.
+Roll Left: /Q.
+Roll Right: /E.
+Thrust: /LeftShift.
+Reverse Engines: /X.
+Toggle Highengines: /LeftShift + W.
+Toggle Mouse Follow: /Space.
+Suspend Physics: /Z.
+Toggle Manual Docking: /L.
+
+== Combat Controls ==
+Fire Active Equipment: /RMB.
+Use Equipment: /R.
+Open Target: /LMB.
+Close Target: /None.
+Repair Hull: /Hold G.
+Repair Shields: /G.
+Collect Cargo: /B.
+Activate Cloak: /Hold C.
+Longrange Scan: /Hold B.
+Launch Mines: /Hold LeftBracket.
+Fire All Missiles: /None.
+Launch Countermeasures: /C.
+Self-destruct: /LeftShift + K.
+Switch Firing Modes: /LeftShift + N.
+Use Heavy Equipment 1: /T.
+Use Heavy Equipment 2: /Hold T.
+Activate Slot 1: /Alpha1.
+Activate Slot 2: /Alpha2.
+Activate Slot 3: /Alpha3.
+Activate Slot 4: /Alpha4.
+Activate Slot 5: /Alpha5.
+Activate Slot 6: /Alpha6.
+Activate Slot 7: /Alpha7.
+Activate Slot 8: /Alpha8.
+Activate Slot 9: /Alpha9.
+Activate Slot 0: /Alpha0.
+Enable Slot 1: /None.
+Enable Slot 2: /None.
+Enable Slot 3: /None.
+Enable Slot 4: /None.
+Enable Slot 5: /None.
+Enable Slot 6: /None.
+Enable Slot 7: /None.
+Enable Slot 8: /None.
+Enable Slot 9: /None.
+Enable Slot 0: /None.
+Fire Weapon Group A: /None.
+Fire Weapon Group B: /None.
+Fire Weapon Group C: /None.
+Fire Weapon Group D: /None.
+Cycle Weapon Groups: /None.
+Interact: /F.
+Open Menu: /Tab.
+Pause Game: /Escape.
+
+== Camera Controls ==
+Change Cameras: /V.
+Orbital Cam: /None.
+Cockpit Cam: /None.
+Backup Cam: /None.
+Toggle Cockpit Freelook: /None.
+
+== Menu Controls ==
+Open Cargo: /Y.
+Open Map: /U.
+Open Character Sheet: /I.
+Open Questlog: /O.
+Open Information: /P.
+Open Party Controls: /LeftBracket.
+Open Playerlist: /RightBracket.
+Toggle FriendDrive: /M.
+Scan Target: /N.
+Hail Target: /LeftShift + M.
+Target Closest Hostile: /Comma.
+Minimize Windows: /Backspace.
+Vanity Mode: /J.
+Photo Mode: /LeftShift + J.
+Toggle Headlights: /K.
+Show Mission Objective: /LeftShift + M.
+Quickmenu Next: /None.
+Quickmenu Previous: /None.
+Radio Channel Previous: /Minus.
+Radio Channel Next: /Equals.
+Navigate Menu Up: /None.
+Navigate Menu Down: /None.
+Navigate Menu Left: /None.
+Navigate Menu Right: /None.
+Menu Press Button: /None.
+Quickuse Item: /None.
+
+== Interaction Controls ==
+Menu Tab Left: /Z.
+Menu Tab Right: /C.
+Menu Action 1: /F.
+Menu Action 2: /E.
+Menu Action 3: /R.
+Create/Delete Map Note: /G.
+Close Menu: /Escape.
+Quicksave: /F8.
+Quickload: /F9.
+Toggle Controller Detection: /None.
+
+== Dialogue Controls ==
+Skip Dialogue: /Keypad0.
+Dialogue Choice 1: /Keypad1.
+Dialogue Choice 2: /Keypad2.
+Dialogue Choice 3: /Keypad3.
+Dialogue Choice 4: /Keypad4.
+Dialogue Choice 5: /Keypad5.
+Dialogue Choice 6: /Keypad6.
+Dialogue Choice 7: /Keypad7.
+Dialogue Choice 8: /Keypad8.
+Dialogue Choice 9: /Keypad9.
+
+== Autopilot Controls ==
+Cancel Autopilot: /F1.
+Goto Target: /F2.
+Toggle Auto-following: /F3.
+Form On Target: /F4.
+
+== Station Controls ==
+Toggle First Person Mouse: /RMB.
+Walk Forward: /W.
+Walk Backward: /S.
+Walk Left: /A.
+Walk Right: /D.
+Sprint: /LeftShift.
+Crouch: /LeftControl.
+Jump: /Space.
+Station Interaction 1: /Z.
+Station Interaction 2: /C.
+Head to Launchpad: /F2.
+Head to Equipment Dealer: /F4.
+Head to Bar: /F3.
+Head to Trader: /F5.
+Head to Shipdealer: /F6.
+Head to UHC Chapterhouse: /F7.
+
+== House Controls ==
+Place/Select Item: /F.
+House Tab Up: /Q.
+House Tab Down: /E.
+Switch House Category: /LeftAlt.
+Reset House Item: /R.
+Toggle Surface Drag: /G.
+Decoration Modifer: /LeftShift.
+Change Decoration Modifier: /T.
+Delete House Item: /Q.
+Change Decoration Mode: /Tab.
+
+== Underspace Access mod keys (in a station, menus closed) ==
+Z and C: the room's own services, no walking needed (launch bay Z = launch; bar Z = Job Board, C = News; equipment Z = dealer, C = repair; trader Z = trade, C = storage; ship dealer Z = ships, C = customize). The mod says them when you enter a room.
+Page Up / Page Down: category of places (People, Doors, Things, Chairs, Everything)
+Up / Down arrows: previous / next place (name, meters, direction)
+Hold Q / E (or Left / Right arrow): turn left / right (with Shift: turn slowly). You hear Facing <name> when you face the chosen place.
+Home: turn to face the chosen place
+End: where is the chosen place now
+Delete: stop the walking directions
+While you hold W A S D the mod says the direction (straight ahead, ahead to your left, to your right, behind you) and the meters.
+F10: where am I. Shift+F10: controls. F11: repeat last message.
+
+== Underspace Access mod keys (in space, flying) ==
+Page Down / Page Up: next / previous nearby thing from the game's contact list (name, kind, enemy or not, distance, direction)
+Shift+Page Down / Shift+Page Up: category: Important, Ships, Solars, Wreckage, Loot, All (what your scanner sees nearby),
+  then MAP, PLACES IN THIS SYSTEM (every known station, planet, jumpgate, laneline at any distance)
+  and MAP, OTHER STAR SYSTEMS (systems next door first).
+Enter: select the thing as your target (same as clicking it). On a map place: set a route there. On a star system: set a route to its jumpgate.
+F3: the autopilot follows the route (game key, auto-follow). F2: fly straight to the target. F: dock with the target (station, planet, laneline, jumpgate).
+L: manual docking on/off (game key). Keep it OFF so the autopilot docks for you.
+End: where is my target (distance, direction, degrees left/right and up/down, hull and shields)
+Hold Left / Right / Up / Down arrows: steer the nose. Shift: slowly. You hear On target when you point at the target.
+Hold Home: steer the nose onto your target by itself (for aiming).
+F10: ship status (hull, shields, energy, speed, throttle, autopilot, target). F11: repeat last message.
+Game keys in space: F2 autopilot fly to target, F dock with target, F3 follow route, F1 cancel autopilot, F4 fly in formation with target,
+W / S throttle up / down, double tap W high engines, X reverse, Shift thrust, Space mouse follow on/off,
+Comma target nearest enemy, right mouse button fire, G recharge shields, hold G repair hull, B collect cargo, Tab menu, U map, O quest log.
