@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Il2Cpp;
@@ -13,6 +13,7 @@ namespace UnderspaceAccess
     //   set, the player's shot leads that target (same as a sighted player's mouse on the pip).
     internal static class Mission
     {
+        [DllImport("user32.dll")] static extern void keybd_event(byte vk, byte scan, uint flags, UIntPtr extra);
         [DllImport("user32.dll")] static extern void mouse_event(uint flags, int dx, int dy, uint data, UIntPtr extra);
         const uint RIGHTDOWN = 0x0008, RIGHTUP = 0x0010;
         const int VK_PERIOD = 0xBE, VK_SEMICOLON = 0xBA;
@@ -41,6 +42,8 @@ namespace UnderspaceAccess
             rmb = false;
             mouse_event(RIGHTUP, 0, 0, 0, UIntPtr.Zero);
         }
+
+        static float stillCheckAt;
 
         static float Hull(BaseSolar t)
         {
@@ -82,12 +85,31 @@ namespace UnderspaceAccess
                 usingLogAt = Time.unscaledTime + 0.4f;
             }
 
-            // Flight's steering says "press F1" while the autopilot flies.
+            // 11/25: enemies attacked while the autopilot flew to a waypoint, and Period did
+            // nothing. Holding Period now presses the game's own F1 (take over) first, once.
+            if (ship.autoPilot == Il2CppUnderspace.pilotSetting.GOTO || ship.autoPilot == Il2CppUnderspace.pilotSetting.DOCK)
+            {
+                ReleaseMouse();
+                if (press)
+                {
+                    keybd_event(0x70, 0x3B, 0, UIntPtr.Zero); keybd_event(0x70, 0x3B, 2, UIntPtr.Zero);
+                    Log.Write("fire: autopilot " + ship.autoPilot + ", pressed F1 to take over");
+                    Speech.Say("Autopilot off. Keep holding Period to fight.");
+                }
+                return;
+            }
+            // Flight's steering says "press F1" while the autopilot flies (lanelines, docking).
             if (ship.autoPilot != Il2CppUnderspace.pilotSetting.FREEFLIGHT) { ReleaseMouse(); return; }
             if (t == null)
             {
                 ReleaseMouse();
                 if (press) Speech.Say("No target. Press Comma for the nearest enemy.");
+                return;
+            }
+            if (t.TryCast<Ship>() == null)
+            {
+                ReleaseMouse();
+                if (press) Speech.Say($"{Flight.SolarName(t)} is not a ship. Press Comma for the nearest enemy.");
                 return;
             }
             int id = t.GetInstanceID();
@@ -135,6 +157,15 @@ namespace UnderspaceAccess
             {
                 usingLogAt = -1f;
                 Log.Write($"fire check: input.isUsingEquipment {ship.input.isUsingEquipment}, energy {ship.powerPlantCurrent:0}/{ship.powerPlantMax:0}");
+            }
+
+            // 11/25: died twice sitting still (speed 0 after the autopilot handed over).
+            if (Time.unscaledTime > stillCheckAt)
+            {
+                stillCheckAt = Time.unscaledTime + 20f;
+                float speed = 0f;
+                try { speed = ship.physics.rbody.velocity.magnitude; } catch { }
+                if (speed < 15f) Speech.Say("You are standing still. Press W a few times to throttle up: a moving ship is harder to hit.", false);
             }
 
             // Tell the player the shots are doing something.

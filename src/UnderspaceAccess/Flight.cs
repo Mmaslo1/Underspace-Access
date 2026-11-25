@@ -57,7 +57,6 @@ namespace UnderspaceAccess
                 }
             }
             if (!inSpace) return;
-
             if (!MenuNav.Active && MenuNav.Focused() && Busy(ship))
             {
                 // Docking or jumping: key presses broke it on 10/27 (F3 right at "docked" undocked
@@ -609,6 +608,9 @@ namespace UnderspaceAccess
         {
             var tu = TargetingUI.mainTargetingUI;
             var t = tu != null ? tu.targetedSolar : null;
+            // 11/25: a dying gunboat stayed the game's target and was re-picked every frame:
+            // "destroyed" said 15 times. A dying or already-announced ship is not picked again.
+            if (t != null && (t.isDying || t.GetInstanceID() == lastGoneId)) t = null;
             if (t != null && !Same(t, target))
             {
                 SetTarget(t);
@@ -620,12 +622,17 @@ namespace UnderspaceAccess
                 if (targetWasAlive)
                 {
                     bool wasEnemy = knownEnemies.Contains(target.GetInstanceID());
-                    Speech.Say(targetName + (wasEnemy ? " destroyed. If it dropped cargo, press B to collect it." : " is gone."));
+                    lastGoneId = target.GetInstanceID();
+                    Speech.Say(targetName + (wasEnemy ? (cargoHintSaid ? " destroyed." : " destroyed. If it dropped cargo, press B to collect it.") : " is gone."));
+                    if (wasEnemy) cargoHintSaid = true;
                     Log.Write("target gone: " + targetName);
                 }
                 target = null; targetWasAlive = false;
             }
         }
+
+        static int lastGoneId;
+        static bool cargoHintSaid;
 
         // ---------- describing things ----------
 
@@ -963,19 +970,46 @@ namespace UnderspaceAccess
         // ---------- damage ----------
 
         static int hullStep = 4, shieldStep = 4;
-        static bool repairHintSaid;
+        static float repairHintAt;
         static void WatchDamage(Ship ship)
         {
             int hull = Pct(ship.currentHealth, ship.itemHealth), shield = Pct(ship.shieldCurrent, ship.shieldMax);
             int hs = Bucket(hull), ss = Bucket(shield);
-            if (ss < shieldStep) Speech.Say(shield <= 0 ? "Shields down!" : $"Shields {shield} percent.", false);
+            if (ss < shieldStep) Speech.Say(shield <= 0 ? "Shields down! Tap G." : $"Shields {shield} percent.", false);
             if (hs < hullStep)
             {
+                LogThreats(ship, hull);
                 Speech.Say($"Hull {hull} percent!", false);
-                if (!repairHintSaid && hull < 60) { repairHintSaid = true; Speech.Say("Hold G to repair the hull. Tap G to recharge shields.", false); }
+                if (hull > 0 && hull < 60 && Time.unscaledTime > repairHintAt) { repairHintAt = Time.unscaledTime + 15f; Speech.Say("Hold G to repair the hull.", false); }
             }
             if (ss == 4 && shieldStep < 4) Speech.Say("Shields full.", false);
             hullStep = hs; shieldStep = ss;
+        }
+
+        // Diagnostic (11/25: hull 100 -> 0 in one second in mission 1, cause unknown):
+        // what is near the ship when the hull drops.
+        static void LogThreats(Ship ship, int hull)
+        {
+            try
+            {
+                var me = ship.transform.position;
+                var near = new List<(float d, string line)>();
+                foreach (var s in UnityEngine.Object.FindObjectsOfType<Ship>())
+                {
+                    if (s == null || s.isPlayer || !s.gameObject.activeInHierarchy) continue;
+                    float d = Vector3.Distance(me, s.transform.position);
+                    if (d > 3000f) continue;
+                    string r; try { r = s.getReactionToPlayer().ToString(); } catch { r = "?"; }
+                    near.Add((d, $"{SolarName(s)} {d:0}m {r}"));
+                }
+                near.Sort((a, b) => a.d.CompareTo(b.d));
+                var parts = new List<string>();
+                for (int i = 0; i < near.Count && i < 6; i++) parts.Add(near[i].line);
+                float speed = -1f;
+                try { speed = ship.physics.rbody.velocity.magnitude; } catch { }
+                Log.Write($"damage: hull {hull}, autopilot {ship.autoPilot}, speed {speed:0}, near: {string.Join("; ", parts)}");
+            }
+            catch (Exception e) { Log.Write("damage log failed: " + e.Message); }
         }
 
         // 4 = above 75 percent, 3 = above 50, 2 = above 25, 1 = above 0, 0 = empty.
@@ -1006,6 +1040,8 @@ namespace UnderspaceAccess
             var n = fresh[0];
             string line = fresh.Count == 1 ? $"Enemy: {SolarName(n)}, {Distance(n)}, {Direction(n)}." : $"{fresh.Count} enemies. Nearest {SolarName(n)}, {Distance(n)}, {Direction(n)}.";
             if (!enemyHintSaid) { enemyHintSaid = true; line += " Comma targets the nearest enemy. Hold Period to aim and fire."; }
+            if (ship.autoPilot == Il2CppUnderspace.pilotSetting.GOTO || ship.autoPilot == Il2CppUnderspace.pilotSetting.DOCK)
+                line += " The autopilot is still flying you: holding Period switches it off so you can fight.";
             Log.Write("enemies: " + line);
             Speech.Say(line);
         }
@@ -1033,7 +1069,7 @@ namespace UnderspaceAccess
             if (steering && ship.autoPilot != Il2CppUnderspace.pilotSetting.FREEFLIGHT)
             {
                 steerYaw = steerPitch = 0; homing = false;
-                if (!autopilotSteerSaid) { autopilotSteerSaid = true; Speech.Say("The autopilot is flying. Press F1 to take over."); }
+                if (!autopilotSteerSaid && !Mission.FireHeld) { autopilotSteerSaid = true; Speech.Say("The autopilot is flying. Press F1 to take over."); }
                 return;
             }
             autopilotSteerSaid = false;
@@ -1065,6 +1101,36 @@ namespace UnderspaceAccess
         }
 
         const float TurnRate = 60f; // degrees per second at full key
+        const float AimTurnRate = 90f; // while Home or Period holds the nose on a target (11/25)
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")] static extern bool SetCursorPos(int x, int y);
+        [System.Runtime.InteropServices.DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
+        [System.Runtime.InteropServices.DllImport("user32.dll")] static extern bool GetClientRect(IntPtr h, out RECT r);
+        [System.Runtime.InteropServices.DllImport("user32.dll")] static extern bool ClientToScreen(IntPtr h, ref POINT p);
+        struct RECT { public int L, T, R, B; }
+        struct POINT { public int X, Y; }
+        static bool pointerOff, pointerLogged;
+        static int lastPx = int.MinValue, lastPy;
+
+        // Puts the real pointer where a sighted player would hold the mouse to turn.
+        static void PointerStick(float yaw, float pitch)
+        {
+            var w = GetForegroundWindow();
+            if (!GetClientRect(w, out var r)) return;
+            var c = new POINT { X = (r.R - r.L) / 2, Y = (r.B - r.T) / 2 };
+            ClientToScreen(w, ref c);
+            int reach = (int)((r.B - r.T) * 0.3f);
+            int x = c.X + (int)(Mathf.Clamp(yaw, -1f, 1f) * reach), y = c.Y - (int)(Mathf.Clamp(pitch, -1f, 1f) * reach);
+            bool off = yaw != 0 || pitch != 0;
+            // Centre once when steering stops; leave the pointer alone otherwise (no fight with JAWS).
+            if (!off && !pointerOff && lastPx != int.MinValue) return;
+            if (x == lastPx && y == lastPy && off == pointerOff) return;
+            SetCursorPos(x, y);
+            lastPx = x; lastPy = y; pointerOff = off;
+            if (off && !pointerLogged) { pointerLogged = true; Log.Write($"steer: cursor unlocked, steering with the pointer ({x},{y}), centre ({c.X},{c.Y}), reach {reach}"); }
+        }
+        static int aimTurnSign;
+        static float steerDiagAt;
 
         public static void FixedTick()
         {
@@ -1075,12 +1141,29 @@ namespace UnderspaceAccess
             if ((homing || autoAim || AimPoint.HasValue) && target != null && ship.autoPilot == Il2CppUnderspace.pilotSetting.FREEFLIGHT)
             {
                 Angles(AimPoint ?? target.transform.position, out float h, out float v);
+                // Target nearly behind: "180 right" and "180 left" swap every frame and the
+                // ship never turned (11/25). Keep turning the way we started until it is in front.
+                if (Mathf.Abs(h) > 150f && aimTurnSign != 0) h = 180f * aimTurnSign;
+                else aimTurnSign = h >= 0 ? 1 : -1;
                 yaw = Mathf.Clamp(h / 15f, -1f, 1f);
-                pitch = Mathf.Clamp(v / 15f, -1f, 1f);
+                pitch = Mathf.Abs(h) > 150f ? 0f : Mathf.Clamp(v / 15f, -1f, 1f);
             }
+            else aimTurnSign = 0;
+            // 11/25 PROVEN: with the cursor unlocked (lock None, which the game sets after some
+            // popups and during autopilot flights) the game steers by where the pointer sits
+            // on screen, like a joystick, and holds the ship against the mod's turning (1 degree
+            // a second instead of 60). Then the mod steers the game's own way: pointer off the
+            // centre while turning, back in the centre otherwise. Locked/Confined: turn the body.
+            if (!MenuNav.Active && MenuNav.Focused() && Cursor.lockState == CursorLockMode.None)
+            {
+                PointerStick(yaw, pitch);
+                return;
+            }
+            pointerOff = false; lastPx = int.MinValue;   // centre again next time the cursor is unlocked
             if (yaw == 0 && pitch == 0) return;
             float dt = Time.fixedDeltaTime;
-            var rot = Quaternion.Euler(-pitch * TurnRate * dt, yaw * TurnRate * dt, 0f);
+            float rate = (homing || autoAim) ? AimTurnRate : TurnRate;
+            var rot = Quaternion.Euler(-pitch * rate * dt, yaw * rate * dt, 0f);
             Rigidbody rb = null;
             try { rb = ship.physics != null ? ship.physics.rbody : null; } catch { }
             if (rb != null)
@@ -1089,6 +1172,15 @@ namespace UnderspaceAccess
                 rb.angularVelocity = Vector3.zero;
             }
             else ship.transform.rotation = ship.transform.rotation * rot;
+            // Diagnostic (11/25: arrows stopped turning the ship after a tutorial popup).
+            if (Time.unscaledTime > steerDiagAt)
+            {
+                steerDiagAt = Time.unscaledTime + 1f;
+                var e = ship.transform.rotation.eulerAngles;
+                Log.Write($"steer diag: yaw {yaw:0.00} pitch {pitch:0.00}, ship heading {e.y:0} pitch {e.x:0}, rb {(rb != null)} kinematic {(rb != null && rb.isKinematic)}, input yaw {ship.input.yaw:0.00} pitch {ship.input.pitch:0.00}, physics suspended {ship.input.isPhysicsSuspended}, lock {Cursor.lockState}"
+                    + (rb != null ? $", rb heading {rb.rotation.eulerAngles.y:0}, rb is ship transform {rb.transform == ship.transform}, move heading {(rb.velocity.sqrMagnitude > 1 ? Quaternion.LookRotation(rb.velocity).eulerAngles.y : -1):0}, constraints {rb.constraints}" : "")
+                    + (Camera.main != null ? $", camera heading {Camera.main.transform.eulerAngles.y:0}" : ""));
+            }
             if (!steerLogged)
             {
                 steerLogged = true;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Il2Cpp;
@@ -183,14 +183,32 @@ namespace UnderspaceAccess
             // Remembered for Semicolon (what now): 11/3 the tutorial "Talk to the chaptermaster" was said once and lost.
             if (key == "objective" || (key == "tutorial" && (text.Contains("Talk to") || text.Contains("Go to") || text.Contains("Press")))) { LastTask = text; LastTaskAt = Time.unscaledTime; }
             if (key.StartsWith("message") || key == "comms") Flight.GameMessage(text);
+            string hint = KeyboardHint(key, text);
             // The same news seconds ago from another part of the screen: said once only.
-            if (!key.StartsWith("prompt") && key != "advance" && SaidRecently(line)) { Log.Write("  (already said, skipped)"); return; }
+            if (!key.StartsWith("prompt") && key != "advance" && SaidRecently(line)) { Log.Write("  (already said, skipped)"); if (hint != null) Speech.Say(hint, false); return; }
             Remember(line);
             if (!key.StartsWith("prompt")) lastMessage = line;
             Speech.Say(line, interrupt);
             if (key == "tutorial" && text.Contains("Talk to")) Speech.Say("After closing this, press Semicolon: the mod picks the person to talk to and guides you there.", false);
+            if (hint != null) Speech.Say(hint, false);
             // What a character says must not be cut off by the reply buttons read right after it.
             if (key == "talk" || key == "comms" || key.Contains("subtitle")) Speech.Protect(line);
+        }
+
+        // The game's tutorials talk about the mouse and the screen: add the mod's keys (11/25).
+        static string KeyboardHint(string key, string text)
+        {
+            string t = text.ToUpperInvariant();
+            if (key == "respawn")
+                return "Reload is selected. Press Enter, then pick your pilot and press Enter, then the newest save and Enter, then Load Game. Down arrow: Quit to Menu.";
+            if (key != "tutorial") return null;
+            if (t.StartsWith("CONTACT WINDOW"))
+                return "With the mod: Page Down and Page Up go through nearby things. Shift Page Down changes the category. Enter selects. F2 flies there.";
+            if (t.StartsWith("COMBAT"))
+                return "With the mod: Comma targets the nearest enemy. Hold Period: the mod turns you onto it and fires. Tap G for shields, hold G to repair the hull.";
+            if (t.StartsWith("ABYSSDRIVE"))
+                return "With the mod: press Semicolon to pick the mission waypoint, then F2, and the autopilot flies you there.";
+            return null;
         }
 
         static bool Visible(TMP_Text t)

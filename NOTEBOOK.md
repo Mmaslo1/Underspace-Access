@@ -1,5 +1,14 @@
 ﻿# Notebook: Underspace
 
+## RESUME (2026-11-25 10:50) - Claude played Mission 1 to the end; KEEP this progress (user said so)
+
+- Save: game autosave6 (10:38:26, right at Mission Complete) in SaveGames\Kardoz; copy in Downloads\Games_Backup\Underspace_saves_2026-11-25_after_mission1. User's old save (laneline step) in ..._before_claude_missions. Load newest Kardoz save (autosave6) to start Mission 2.
+- PROVEN 11/25: 0.10.2 laneline fly-in works (3 lanelines). Update check works. Mission 1 COMPLETE ($65,000, level 4): laneline -> fighters -> laneline Spolen -> laneline Rikenrend (protect shipyard) -> find convoy (autopilot ~40 km) -> ambush 5 Nebulas + gunboat DSS Acceptance near a collapsed jumphole. Mission 2 "Upgrades": land on Rikenrend Shipyard; optional storm chase with Veildrake Lansrig; STORMS tutorial.
+- PROVEN steering bug: after some popups / during autopilot the game sets Cursor.lockState None; it then steers by the pointer position (virtual joystick) and holds the ship against MoveRotation (~1 deg/s). SetCursorPos right of centre turned the ship. Locked/Confined: MoveRotation works. Relocking each frame failed (game resets None every frame). FIX: Flight.PointerStick steers by placing the real pointer when lock is None (UNTESTED in play).
+- Other fixes: behind-target left/right flip; aim 90 deg/s while homing; Period during autopilot GOTO/DOCK presses game F1 once; Period on non-ship target says so; standing-still warning while firing; "Shields down! Tap G", "Hold G" every 15 s under 60 hull; damage: log of nearby ships; death screen hint; tutorial keyboard hints (CONTACT WINDOW, COMBAT, ABYSSDRIVE); walking intro no longer cuts space intro; dying target re-picked ("destroyed" x15) fixed, cargo hint once. Newest build compiled, NOT deployed while game ran.
+- Deaths: autopilot flew into the ambush (100->0 in ~1 s, cause unproven); parked at speed 0 under 5 Nebulas. Survived with throttle up + G.
+- Open: "You have leveled up" tutorial skipped as already said (SaidRecently false positive). Comms all labelled Yunelese.
+
 ## RESUME (2026-11-03 later) - v0.10.2 deployed (laneline ring + no double speech), UNTESTED
 
 - 0.10.1 PROVEN 2:05-2:19 AM log: Semicolon chaptermaster worked, mission "First Day On The Job" started, launched, F2 to waypoint 6.4 km OK. Then "Dock with the laneline. Hint: Fly your ship through the bottom ring." Target Planet Vauldric >> Spolen Trainyard (dockDistance 1100); F at 900-1027 m did nothing ~20x, L toggled manual docking, F2 Goto stopped instantly ("already close").

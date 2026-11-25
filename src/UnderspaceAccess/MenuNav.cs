@@ -70,7 +70,9 @@ namespace UnderspaceAccess
             if (!active && inGameAt > 0 && Time.unscaledTime >= inGameAt)
             {
                 inGameAt = -1f;
-                if (!UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.StartsWith("Title"))
+                // In space Flight gives its own help; this walking help cut it off (11/25).
+                if (Flight.InSpace) { }
+                else if (!UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.StartsWith("Title"))
                 {
                     inGameSaid = true;
                     Speech.Say("You are in the game. F10: where you are. Page Up or Page Down: places to walk to, then Up and Down arrows. Walk with W A S D, turn with Q and E. Shift F10: all keys, also written to the file Underspace Controls in Downloads. Escape: pause menu. " + InGame.RoomServiceKeys());
