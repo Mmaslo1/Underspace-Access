@@ -4,13 +4,16 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(UnderspaceAccess.Main), "UnderspaceAccess", "0.10.2", "Claude")]
+[assembly: MelonInfo(typeof(UnderspaceAccess.Main), "UnderspaceAccess", UnderspaceAccess.Main.Version, "Claude")]
 [assembly: MelonGame(null, "Underspace")]
 
 namespace UnderspaceAccess
 {
     public class Main : MelonMod
     {
+        public const string Version = "0.10.3";
+        [DllImport("user32.dll")] static extern short GetAsyncKeyState(int vKey);
+        bool updateKeyWas;
         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll")] static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint pid);
 
@@ -25,8 +28,9 @@ namespace UnderspaceAccess
             Log.Path = Path.Combine(Dir, "UnderspaceAccess.log");
             File.WriteAllText(Log.Path, "");
             var stamp = File.GetLastWriteTime(typeof(Main).Assembly.Location).ToString("yyyy-MM-dd HH:mm:ss");
-            Log.Write($"PROBE UnderspaceAccess 0.10.2 build {stamp} loaded; {(Environment.Is64BitProcess ? 64 : 32)}-bit; exe {Environment.ProcessPath}; MelonLoader {MelonLoader.Properties.BuildInfo.Version}");
+            Log.Write($"PROBE UnderspaceAccess {Version} build {stamp} loaded; {(Environment.Is64BitProcess ? 64 : 32)}-bit; exe {Environment.ProcessPath}; MelonLoader {MelonLoader.Properties.BuildInfo.Version}");
             Speech.Start(Path.Combine(Dir, "prism.dll"));
+            Updater.Start(Version, (t, i) => Speech.Say(t, i), Log.Write);
             new Thread(Watchdog) { IsBackground = true, Name = "UnderspaceAccess loading watch" }.Start();
         }
 
@@ -38,6 +42,12 @@ namespace UnderspaceAccess
                 greeted = true;
                 Speech.Say("Underspace Access loaded.");
             }
+            Updater.Update();
+            // Shift+F12: download a new version of the mod (Updater.cs). F12 is free in the game and the mod.
+            GetWindowThreadProcessId(GetForegroundWindow(), out uint fgPid);
+            bool updateKey = fgPid == (uint)Environment.ProcessId && (GetAsyncKeyState(0x7B) & 0x8000) != 0 && (GetAsyncKeyState(0x10) & 0x8000) != 0;
+            if (updateKey && !updateKeyWas) Updater.Key();
+            updateKeyWas = updateKey;
             MenuNav.Update();
             Trade.Tick();
             InGame.Update();

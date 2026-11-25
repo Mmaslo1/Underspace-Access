@@ -1,4 +1,4 @@
-UNDERSPACE CONTROLS (your current keys, from the game's settings)
+﻿UNDERSPACE CONTROLS (your current keys, from the game's settings)
 
 
 == Flight Controls ==
@@ -170,6 +170,7 @@ End: where is the chosen place now
 Delete: stop the walking directions
 While you hold W A S D the mod says the direction (straight ahead, ahead to your left, to your right, behind you) and the meters.
 F10: where am I. Shift+F10: controls. F11: repeat last message.
+Shift+F12 (anywhere): download a new version of the mod when the mod says an update is available. It installs itself after you close the game.
 
 == Underspace Access mod keys (in space, flying) ==
 Page Down / Page Up: next / previous nearby thing from the game's contact list (name, kind, enemy or not, distance, direction)
