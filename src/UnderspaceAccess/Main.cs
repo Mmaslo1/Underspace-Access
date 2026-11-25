@@ -11,7 +11,7 @@ namespace UnderspaceAccess
 {
     public class Main : MelonMod
     {
-        public const string Version = "0.10.3";
+        public const string Version = "0.10.4";
         [DllImport("user32.dll")] static extern short GetAsyncKeyState(int vKey);
         bool updateKeyWas;
         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
