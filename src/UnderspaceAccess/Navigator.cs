@@ -84,6 +84,23 @@ namespace UnderspaceAccess
         static Place fTarget;
         static void InteractCheck(PlayerController pc)
         {
+            // 11/27: blocked 13 m from the chaptermaster by the Bounty Board; the game's F always
+            // used the board in front of him. Enter talks to (or uses) the chosen one directly.
+            if (MenuNav.Pressed(MenuNav.VK_RETURN) && target != null && target.src != null && (target.kind == "person" || target.kind == "thing"))
+            {
+                float d = Meters(pc, target);
+                Log.Write($"Enter talk: {target.name} {d:0.0}m");
+                if (d > TalkReach) { Speech.Say($"{target.name} is {Mathf.RoundToInt(d)} meters away. Walk closer first."); return; }
+                try
+                {
+                    var npc = target.src.TryCast<StationNPC>();
+                    var act = target.src.TryCast<StationActivator>();
+                    if (npc != null) { Speech.Say("Talking to " + target.name + "."); npc.doInteraction(false); }
+                    else if (act != null) { Speech.Say("Using " + target.name + "."); act.activateObject(0f); }
+                }
+                catch (Exception e) { Log.Write("Enter talk failed: " + e.Message); }
+                return;
+            }
             if (MenuNav.Pressed(VK_F))
             {
                 var ui = StationUI.mainUI;
@@ -94,6 +111,8 @@ namespace UnderspaceAccess
                 // People often stand behind a counter: from up to 10 meters F still talks (10/25: stuck 9 m from the Wreckage Vendor).
                 // 11/3: blocked 13-15 m from Hantaonailati in the chapterhouse, F did nothing: reach now 18 m.
                 fTarget = target != null && Meters(pc, target) < (target.kind == "person" || target.kind == "thing" ? TalkReach : 4f) ? target : null;
+                if (fTarget != null && target.kind == "person" && hover.Length > 0 && hover.IndexOf(target.name, StringComparison.OrdinalIgnoreCase) < 0)
+                    Speech.Say($"F used the {hover} in front of you, not {target.name}. Press Escape to close it, then press Enter to talk to {target.name}.");
                 fCheckAt = Time.unscaledTime + 0.7f;
             }
             if (fCheckAt <= 0 || Time.unscaledTime < fCheckAt) return;
@@ -237,7 +256,7 @@ namespace UnderspaceAccess
             var place = places[index];
             target = place; guiding = true; arrivedSaid = false;
             lastSaid = Bucket(pc, place); nextGuide = Time.unscaledTime + 1f;
-            return $"Person to talk to: {place.name}, {Where(pc, place, false)}{TurnHint(Angle(pc, place))} Chosen for you: walk with W, the mod guides you, press F when it says close enough";
+            return $"Person to talk to: {place.name}, {Where(pc, place, false)}{TurnHint(Angle(pc, place))} Chosen for you: walk with W, the mod guides you, press Enter when it says close enough";
         }
 
         static string ThingName(StationActivator a, bool isChair)
@@ -306,7 +325,7 @@ namespace UnderspaceAccess
                 {
                     arrivedSaid = true;
                     float a = Angle(pc, target);
-                    Speech.Say($"You are at {target.name}." + (Mathf.Abs(a) < 30 ? " Press F." : $" It is {Direction(a)}.{TurnHint(a)} Or press Home to face it. Then press F."));
+                    Speech.Say($"You are at {target.name}." + (Mathf.Abs(a) < 30 ? " Press Enter." : $" It is {Direction(a)}.{TurnHint(a)} Or press Home to face it. Then press Enter."));
                 }
                 return;
             }
@@ -320,7 +339,7 @@ namespace UnderspaceAccess
                 if (Vector3.Distance(stuckFrom, Me(pc)) < 0.4f && Time.unscaledTime - lastStuckSay > 3f)
                 {
                     lastStuckSay = Time.unscaledTime;
-                    if ((target.kind == "person" || target.kind == "thing") && dist < TalkReach) Speech.Say($"Blocked, probably a counter or a table. You are close enough to {target.name}. Press F.");
+                    if ((target.kind == "person" || target.kind == "thing") && dist < TalkReach) Speech.Say($"Blocked, probably a counter or a table. You are close enough to {target.name}. Press Enter to talk.");
                     else Speech.Say("Blocked. Try walking to the side with A or D.");
                 }
                 nextStuckCheck = Time.unscaledTime + 1.5f; stuckFrom = Me(pc);
