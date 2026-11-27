@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Il2Cpp;
@@ -205,7 +205,7 @@ namespace UnderspaceAccess
             if (t.StartsWith("CONTACT WINDOW"))
                 return "With the mod: Page Down and Page Up go through nearby things. Shift Page Down changes the category. Enter selects. F2 flies there.";
             if (t.StartsWith("COMBAT"))
-                return "With the mod: Comma targets the nearest enemy. Hold Period: the mod turns you onto it and fires. Tap G for shields, hold G to repair the hull.";
+                return "With the mod: Comma targets the nearest enemy. Hold Period: the mod turns you onto it, flies you closer, and fires when in range. 3 or more enemies: run, double-tap W. Tap G for shields, hold G to repair the hull.";
             if (t.StartsWith("ABYSSDRIVE"))
                 return "With the mod: press Semicolon to pick the mission waypoint, then F2, and the autopilot flies you there.";
             return null;

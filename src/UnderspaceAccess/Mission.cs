@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Il2Cpp;
@@ -33,7 +33,7 @@ namespace UnderspaceAccess
         // ---------- firing ----------
 
         static bool wasHeld, inRange, tooFarSaid, curveLogged;
-        static float burstStart, startHull, startShield, usingLogAt = -1f;
+        static float tooFarRepeatAt, burstStart, startHull, startShield, usingLogAt = -1f;
         static int hullStep = 4, shieldStep = 4, lastTargetId;
 
         public static void ReleaseMouse()
@@ -53,9 +53,29 @@ namespace UnderspaceAccess
 
         static float Shield(BaseSolar t) => t.hasShield && t.shieldMax > 0 ? 100f * t.shieldCurrent / t.shieldMax : 0f;
 
-        static float GunRange(Ship ship)
+        // 11/27: FireControl.MaxGunRange read 0 for the player, so the mod fired from 2-5 km
+        // and never hit. Now: the longest ComponentGun.range on the ship (SDK default 600 m).
+        static int rangeShipId;
+        static float rangeCached, rangeAt;
+        internal static float GunRange(Ship ship)
         {
-            try { return ship.FireControl.MaxGunRange; } catch { return 0f; }
+            if (ship.GetInstanceID() == rangeShipId && Time.unscaledTime < rangeAt) return rangeCached;
+            float r = 0f; string src = "FireControl";
+            try { r = ship.FireControl.MaxGunRange; } catch { }
+            if (r <= 0f)
+            {
+                src = "guns";
+                try
+                {
+                    foreach (var g in ship.GetComponentsInChildren<ComponentGun>(true))
+                        if (g != null && g.range > r) r = g.range;
+                }
+                catch (Exception e) { Log.Write("gun range read failed: " + e.Message); }
+            }
+            if (r <= 0f) { r = 600f; src = "default"; }
+            if (ship.GetInstanceID() != rangeShipId || Mathf.Abs(r - rangeCached) > 1f) Log.Write($"gun range {r:0} m ({src})");
+            rangeShipId = ship.GetInstanceID(); rangeCached = r; rangeAt = Time.unscaledTime + 15f;
+            return r;
         }
 
         static void FireTick(bool free)
@@ -128,10 +148,17 @@ namespace UnderspaceAccess
             {
                 ReleaseMouse();
                 inRange = false;
+                // Holding Period also flies the ship closer: nose on target + full throttle.
+                try { ship.input.throttle = 1f; } catch { }
                 if (!tooFarSaid)
                 {
-                    tooFarSaid = true;
-                    Speech.Say($"Too far: {Flight.Distance(t)}. Guns reach {Mathf.RoundToInt(range)} meters. Keep holding, and throttle up with W.");
+                    tooFarSaid = true; tooFarRepeatAt = Time.unscaledTime + 2.5f;
+                    Speech.Say($"Too far, {Flight.Distance(t)}. Guns reach {Mathf.RoundToInt(range)} meters. Keep holding Period: flying you closer.");
+                }
+                else if (Time.unscaledTime > tooFarRepeatAt)
+                {
+                    tooFarRepeatAt = Time.unscaledTime + 2.5f;
+                    Speech.Say(Flight.Distance(t) + ".", false);
                 }
                 return;
             }

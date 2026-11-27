@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -11,7 +11,7 @@ namespace UnderspaceAccess
 {
     public class Main : MelonMod
     {
-        public const string Version = "0.10.4";
+        public const string Version = "0.10.5";
         [DllImport("user32.dll")] static extern short GetAsyncKeyState(int vKey);
         bool updateKeyWas;
         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();

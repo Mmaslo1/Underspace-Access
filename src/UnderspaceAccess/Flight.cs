@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Il2Cpp;
 using UnityEngine;
@@ -552,7 +552,7 @@ namespace UnderspaceAccess
             try { if (listed.button != null) listed.button.activateButton(); } catch (Exception e) { Log.Write("activateButton failed: " + e.Message); }
             Target(s);
             bool hostile = s.getReactionToPlayer() == Il2CppUnderspace.SolarReaction.Hostile;
-            Speech.Say($"Target: {SolarName(s)}. " + (hostile ? "Enemy. Hold Period to aim and fire." : IsGate(s) ? "F2 flies you through it to the next system." : IsLane(s) ? "Laneline. F2 flies you into its ring." : CanDock(s) ? "F2 flies you there and docks." : "Press F2 to fly there."));
+            Speech.Say($"Target: {SolarName(s)}. " + (hostile ? "Enemy. Hold Period: turns you toward it, flies you closer, fires when in range." : IsGate(s) ? "F2 flies you through it to the next system." : IsLane(s) ? "Laneline. F2 flies you into its ring." : CanDock(s) ? "F2 flies you there and docks." : "Press F2 to fly there."));
         }
 
         static void Target(BaseSolar s)
@@ -1020,6 +1020,7 @@ namespace UnderspaceAccess
         static readonly HashSet<int> knownEnemies = new();
         static float nextEnemyScan;
         static bool enemyHintSaid;
+        static float fleeSaidAt = -100f;
         static void WatchEnemies(Ship ship)
         {
             if (Time.unscaledTime < nextEnemyScan) return;
@@ -1036,11 +1037,28 @@ namespace UnderspaceAccess
                 if (knownEnemies.Add(s.GetInstanceID())) fresh.Add(s);
             }
             if (fresh.Count == 0) return;
+            int total = 0;
+                        foreach (var s in UnityEngine.Object.FindObjectsOfType<Ship>())
+            {
+                if (s == null || s.isPlayer || s.isDying || !s.gameObject.activeInHierarchy) continue;
+                if (Vector3.Distance(me, s.transform.position) > 6000f) continue;
+                try { if (s.getReactionToPlayer() == Il2CppUnderspace.SolarReaction.Hostile) total++; } catch { }
+            }
             fresh.Sort((a, b) => Vector3.Distance(me, a.transform.position).CompareTo(Vector3.Distance(me, b.transform.position)));
             var n = fresh[0];
             string line = fresh.Count == 1 ? $"Enemy: {SolarName(n)}, {Distance(n)}, {Direction(n)}." : $"{fresh.Count} enemies. Nearest {SolarName(n)}, {Distance(n)}, {Direction(n)}.";
-            if (!enemyHintSaid) { enemyHintSaid = true; line += " Comma targets the nearest enemy. Hold Period to aim and fire."; }
-            if (ship.autoPilot == Il2CppUnderspace.pilotSetting.GOTO || ship.autoPilot == Il2CppUnderspace.pilotSetting.DOCK)
+            // 11/27: 5 Eclipses killed the player's light fighter in under a second. 3 or more = run.
+            if (total >= 3 && Time.unscaledTime > fleeSaidAt + 30f)
+            {
+                fleeSaidAt = Time.unscaledTime;
+                Flight.Angles(n.transform.position, out float fh, out _);
+                string away = Mathf.Abs(fh) > 120f ? "they are behind you, so keep going straight" : fh < 0 ? "they are to your left, so hold the Right arrow to turn away" : "they are to your right, so hold the Left arrow to turn away";
+                line += $" {total} enemies is too many for your ship. Run: {away}, and double-tap W for high engines.";
+                if (ship.autoPilot == Il2CppUnderspace.pilotSetting.GOTO || ship.autoPilot == Il2CppUnderspace.pilotSetting.DOCK) line += " Press F1 first to take over from the autopilot.";
+                Log.Write("enemies: flee advice, total " + total);
+            }
+            else if (!enemyHintSaid) { enemyHintSaid = true; line += " Comma targets the nearest enemy. Hold Period: turns you toward it, flies you closer, and fires when in range."; }
+            if (!line.Contains("Run:") && (ship.autoPilot == Il2CppUnderspace.pilotSetting.GOTO || ship.autoPilot == Il2CppUnderspace.pilotSetting.DOCK))
                 line += " The autopilot is still flying you: holding Period switches it off so you can fight.";
             Log.Write("enemies: " + line);
             Speech.Say(line);
