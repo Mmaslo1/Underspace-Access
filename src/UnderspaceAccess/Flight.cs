@@ -1048,7 +1048,16 @@ namespace UnderspaceAccess
             var n = fresh[0];
             string line = fresh.Count == 1 ? $"Enemy: {SolarName(n)}, {Distance(n)}, {Direction(n)}." : $"{fresh.Count} enemies. Nearest {SolarName(n)}, {Distance(n)}, {Direction(n)}.";
             // 11/27: 5 Eclipses killed the player's light fighter in under a second. 3 or more = run.
-            if (total >= 3 && Time.unscaledTime > fleeSaidAt + 30f)
+            var cmf = CampaignManager.mainManager;
+            bool missionFight = cmf != null && cmf.currentCampaign > 0; // freeplay logs mission 0
+            if (total >= 3 && missionFight && Time.unscaledTime > fleeSaidAt + 30f)
+            {
+                // Campaign fights keep you in an area: running leaves the mission. Survive instead.
+                fleeSaidAt = Time.unscaledTime;
+                line += $" {total} enemies. This is a mission fight, so do not run far. Keep moving: hold Period on one enemy at a time, and tap G whenever shields go down.";
+                Log.Write("enemies: mission fight advice, total " + total);
+            }
+            else if (total >= 3 && !missionFight && Time.unscaledTime > fleeSaidAt + 30f)
             {
                 fleeSaidAt = Time.unscaledTime;
                 Flight.Angles(n.transform.position, out float fh, out _);
