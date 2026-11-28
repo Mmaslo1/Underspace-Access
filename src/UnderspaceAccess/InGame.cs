@@ -200,7 +200,12 @@ namespace UnderspaceAccess
         {
             string t = text.ToUpperInvariant();
             if (key == "respawn")
-                return "Reload is selected. Press Enter, then pick your pilot and press Enter, then the newest save and Enter, then Load Game. Down arrow: Quit to Menu.";
+                {
+                    // 11/27: after dying in the campaign the player picked Mike (freeplay) and loaded the wrong game.
+                    var cmd = CampaignManager.mainManager;
+                    string pilot = cmd != null && cmd.currentCampaign > 0 ? "Kardoz, your campaign pilot, not Mike," : "your pilot";
+                    return $"Reload is selected. Press Enter, then pick {pilot} and press Enter, then the newest save, the first one in the list, and Enter, then Load Game. Down arrow: Quit to Menu.";
+                }
             if (key != "tutorial") return null;
             if (t.StartsWith("CONTACT WINDOW"))
                 return "With the mod: Page Down and Page Up go through nearby things. Shift Page Down changes the category. Enter selects. F2 flies there.";

@@ -32,7 +32,7 @@ namespace UnderspaceAccess
 
         // ---------- firing ----------
 
-        static bool wasHeld, inRange, tooFarSaid, curveLogged;
+        static bool throttleSaid, wasHeld, inRange, tooFarSaid, curveLogged;
         static float tooFarRepeatAt, burstStart, startHull, startShield, usingLogAt = -1f;
         static int hullStep = 4, shieldStep = 4, lastTargetId;
 
@@ -101,7 +101,7 @@ namespace UnderspaceAccess
             if (press)
             {
                 burstStart = Time.unscaledTime;
-                tooFarSaid = false; inRange = false; curveLogged = false;
+                tooFarSaid = false; inRange = false; curveLogged = false; throttleSaid = false;
                 usingLogAt = Time.unscaledTime + 0.4f;
             }
 
@@ -162,6 +162,17 @@ namespace UnderspaceAccess
                 }
                 return;
             }
+            // 11/27: died twice at speed 0 under 5 Nebulas (the autopilot leaves the throttle at 0).
+            // While Period is held in range the ship keeps moving at 80 percent or more.
+            try
+            {
+                if (ship.input.throttle < 0.6f)
+                {
+                    ship.input.throttle = 0.8f;
+                    if (!throttleSaid) { throttleSaid = true; Speech.Say("Throttle up, keep moving.", false); Log.Write("fire: throttle raised to 0.8"); }
+                }
+            }
+            catch { }
             if (!inRange)
             {
                 inRange = true;
@@ -255,11 +266,15 @@ namespace UnderspaceAccess
         // ---------- campaign state log, stay-near warning ----------
 
         static string lastState = "";
+        static bool consoleWas;
         static float nextWatch;
         static void Watch()
         {
             if (Time.unscaledTime < nextWatch) return;
             nextWatch = Time.unscaledTime + 1f;
+            bool con = MenuNav.ConsoleOpen();
+            if (con && !consoleWas) { Log.Write("developer console opened"); Speech.Say("The game's command box opened, probably by a stray key. Press Escape to close it."); }
+            consoleWas = con;
             var cm = CampaignManager.mainManager;
             if (cm == null) return;
             string name = cm.currentCampaignMission != null ? cm.currentCampaignMission.campaignMissionName : "none";

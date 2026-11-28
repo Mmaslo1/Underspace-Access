@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -357,8 +357,24 @@ namespace UnderspaceAccess
         static float escapeCheckAt = -1f;
         static string escapeSignature;
 
+        // 11/27: the game's developer command box ("Input Text") opened after a load and Escape
+        // could not close it ("no back button"). Escape now closes it with the game's own call.
+        internal static bool ConsoleOpen()
+        {
+            try { var c = DeveloperConsole.main; return c != null && c.consoleMenu != null && c.consoleMenu.activeInHierarchy; } catch { return false; }
+        }
+
         static void Escape()
         {
+            if (ConsoleOpen())
+            {
+                try { DeveloperConsole.main.closeConsole(); } catch (Exception e) { Log.Write("closeConsole failed: " + e.Message); }
+                try { if (DeveloperConsole.main.consoleMenu.activeInHierarchy) DeveloperConsole.main.consoleMenu.SetActive(false); } catch { }
+                try { UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(null); } catch { }
+                Log.Write("escape: closed the developer console");
+                Speech.Say("Command box closed.");
+                return;
+            }
             var dd = items.Count > 0 ? OpenDropdownOwner() : null;
             if (dd != null) { dd.Hide(); openedFrom = dd; holdUntil = Time.unscaledTime + 1f; return; }
             escapeSignature = lastSignature;
