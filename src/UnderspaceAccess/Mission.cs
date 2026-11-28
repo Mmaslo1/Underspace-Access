@@ -26,6 +26,7 @@ namespace UnderspaceAccess
             bool free = !MenuNav.Active && MenuNav.Focused();
             if (free && MenuNav.Pressed(VK_SEMICOLON)) Speech.Say(WhatNow());
             FireTick(free);
+            try { Scanner.Tick(); } catch (Exception e) { Log.Write("scanner error: " + e.Message); }
             Watch();
             AreaWatch();
         }
@@ -267,9 +268,100 @@ namespace UnderspaceAccess
                 var keys = InGame.RoomKeys();
                 if (keys.Count > 0) parts.Add("Room keys: " + string.Join(", ", keys));
             }
+            if (cm != null && cm.currentCampaign == 0 && cm.campaignState > 0)
+            {
+                string next = NextMissions(cm);
+                if (next.Length > 0) parts.Add(next);
+            }
             string line = parts.Count > 0 ? string.Join(". ", parts) + "." : "No objective shown right now. O opens the quest log.";
             Log.Write("what now: " + line);
             return line;
+        }
+
+        // 11/27: after Mission 1 the game says only "Gain more experience and await word from the
+        // Idolsmashers". The mission list (allCampaignMissions) holds which missions can start at the
+        // current campaignState and their difficulty. Dumped once; HYPOTHESIS: difficulty ~ level.
+        static bool missionsDumped;
+        static int openingLevel = -1;
+        static List<string> ToList(Il2CppSystem.Collections.Generic.List<string> l)
+        {
+            var r = new List<string>();
+            for (int i = 0; l != null && i < l.Count; i++) r.Add(l[i]);
+            return r;
+        }
+        static string NextMissions(CampaignManager cm)
+        {
+            var found = new List<string>();
+            try
+            {
+                var all = cm.allCampaignMissions;
+                if (all == null) return "";
+                for (int i = 0; i < all.Count; i++)
+                {
+                    var m = all[i];
+                    if (m == null) continue;
+                    var stages = new List<string>();
+                    bool ok = false;
+                    if (m.validCampaignStartingStages != null)
+                        for (int j = 0; j < m.validCampaignStartingStages.Count; j++)
+                        {
+                            int st = m.validCampaignStartingStages[j];
+                            stages.Add(st.ToString());
+                            if (st == cm.campaignState) ok = true;
+                        }
+                    if (!missionsDumped)
+                        Log.Write($"campaign mission {m.campaignMissionNumber} '{m.campaignMissionName}' id {m.campaignMissionID} difficulty '{m.campaignMissionDifficult}' reward '{m.campaignMissionReward}' faction '{m.campaignMissionFaction}' stages [{string.Join(",", stages)}] start '{m.campaignStartingAssignment}' desc '{m.campaignMissionDescription}'");
+                    if (ok) found.Add($"{InGame.Clean(m.campaignMissionName)}, difficulty {InGame.Clean(m.campaignMissionDifficult)}");
+                }
+                if (!missionsDumped)
+                {
+                    try
+                    {
+                        Log.Write($"campaign state {cm.campaignState}, active events [{string.Join(",", ToList(cm.activeEventList))}], finished [{string.Join(",", ToList(cm.finishedEvents))}]");
+                        var ev = cm.allEvents;
+                        for (int i = 0; ev != null && i < ev.Count; i++)
+                        {
+                            var e = ev[i]; if (e == null) continue;
+                            var req = new List<string>();
+                            if (e.initialTrackingRequirements != null)
+                                for (int j = 0; j < e.initialTrackingRequirements.Count; j++)
+                                {
+                                    var r = e.initialTrackingRequirements[j];
+                                    req.Add($"{r.neededRequirementType} {r.operand} {r.requirementValue} '{r.requirementName}'");
+                                }
+                            bool met = false; try { met = e.meetsRequirements(); } catch { }
+                            Log.Write($"event {e.dialogueEventID}: {e.trackingEventType} threshold {e.trackingEventThreshold}, met {met}, regions [{string.Join(",", ToList(e.validRegions))}], req [{string.Join("; ", req)}]");
+                        }
+                    }
+                    catch (Exception ex) { Log.Write("event dump failed: " + ex.Message); }
+                }
+                openingLevel = -1;
+                try
+                {
+                    var ev2 = cm.allEvents;
+                    for (int i = 0; ev2 != null && i < ev2.Count; i++)
+                    {
+                        var e = ev2[i]; if (e == null || e.initialTrackingRequirements == null) continue;
+                        bool stateOk = false; int lv = -1;
+                        for (int j = 0; j < e.initialTrackingRequirements.Count; j++)
+                        {
+                            var r = e.initialTrackingRequirements[j];
+                            string ty = r.neededRequirementType.ToString(), op = r.operand.ToString();
+                            if (ty == "Campaign" && op == "EQUALS" && Mathf.RoundToInt(r.requirementValue) == cm.campaignState) stateOk = true;
+                            if (ty == "Level" && op == "GREATEREQUALS") lv = Mathf.RoundToInt(r.requirementValue);
+                        }
+                        if (stateOk && lv > 0) openingLevel = lv;
+                    }
+                }
+                catch (Exception ex) { Log.Write("opening level failed: " + ex.Message); }
+                missionsDumped = true;
+            }
+            catch (Exception e) { Log.Write("mission list failed: " + e.Message); }
+            int lvl = -1; try { lvl = PlayerController.Player.playerLevel; } catch { }
+            if (found.Count == 0 && openingLevel > 0)
+                return $"The next campaign mission opens at level {openingLevel}" + (lvl > 0 ? $", you are level {lvl}" : "") + ". Earn money with jobs from the bar's Job Board, bounties, trading or mining: your level grows with your net worth. When you reach it, fly through two star systems and the Idolsmashers call you";
+            if (found.Count == 0) return "";
+            return "Next campaign mission: " + string.Join("; ", found) + (lvl > 0 ? $". You are level {lvl}" : "") + ". The chaptermaster on Planet Vauldric offers it";
         }
 
         // ---------- campaign state log, stay-near warning ----------

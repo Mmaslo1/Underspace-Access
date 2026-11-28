@@ -325,7 +325,7 @@ namespace UnderspaceAccess
                 {
                     arrivedSaid = true;
                     float a = Angle(pc, target);
-                    Speech.Say($"You are at {target.name}." + (Mathf.Abs(a) < 30 ? " Press Enter." : $" It is {Direction(a)}.{TurnHint(a)} Or press Home to face it. Then press Enter."));
+                    Speech.Say($"You are at {target.name}." + (target.kind == "door" ? "" : Mathf.Abs(a) < 30 ? " Press Enter." : $" It is {Direction(a)}.{TurnHint(a)} Or press Home to face it. Then press Enter."));
                 }
                 return;
             }
