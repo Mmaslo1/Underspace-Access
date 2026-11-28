@@ -33,7 +33,7 @@ namespace UnderspaceAccess
         // ---------- firing ----------
 
         static bool throttleSaid, wasHeld, inRange, tooFarSaid, curveLogged;
-        static float tooFarRepeatAt, burstStart, startHull, startShield, usingLogAt = -1f;
+        static float cruiseOffAt = -10f, tooFarRepeatAt, burstStart, startHull, startShield, usingLogAt = -1f;
         static int hullStep = 4, shieldStep = 4, lastTargetId;
 
         public static void ReleaseMouse()
@@ -139,11 +139,20 @@ namespace UnderspaceAccess
                 startHull = Hull(t); startShield = Shield(t);
                 Flight.Angles(t.transform.position, out float h0, out float v0);
                 Log.Write($"fire start: {Flight.SolarName(t)} {Flight.Meters(t):0}m, off {h0:0} / {v0:0} deg, gun range {GunRange(ship):0}, cruise {ship.isInCruise}, mouse input {ship.input.useMouseInput}");
-                if (press && ship.isInCruise) Speech.Say("High engines are on. Guns do not fire until you slow down.");
+
             }
 
             // Guns have a range: hold fire and say so until the target is inside it.
             float range = GunRange(ship);
+            // 11/27: the player tapped W fast (as told), the double tap switched high engines on and
+            // the guns stopped ("slow down", no key known). Near the target the mod switches them off.
+            if (ship.isInCruise && Flight.Meters(t) < range * 1.5f && Time.unscaledTime > cruiseOffAt + 1f)
+            {
+                cruiseOffAt = Time.unscaledTime;
+                try { ship.knockShipOutofCruise(); Log.Write("fire: knockShipOutofCruise"); }
+                catch (Exception e) { Log.Write("knockShipOutofCruise failed: " + e.Message + ", pressing S"); keybd_event(0x53, 0x1F, 0, UIntPtr.Zero); keybd_event(0x53, 0x1F, 2, UIntPtr.Zero); }
+                Speech.Say("High engines off, so you can shoot. Do not tap W fast: two quick taps switch them on.", false);
+            }
             if (range > 0f && Flight.Meters(t) > range)
             {
                 ReleaseMouse();
@@ -203,7 +212,7 @@ namespace UnderspaceAccess
                 stillCheckAt = Time.unscaledTime + 20f;
                 float speed = 0f;
                 try { speed = ship.physics.rbody.velocity.magnitude; } catch { }
-                if (speed < 15f) Speech.Say("You are standing still. Press W a few times to throttle up: a moving ship is harder to hit.", false);
+                if (speed < 15f) Speech.Say("You are standing still. Hold W for one second to throttle up: a moving ship is harder to hit. Do not tap it twice quickly.", false);
             }
 
             // Tell the player the shots are doing something.
